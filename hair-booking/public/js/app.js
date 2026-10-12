@@ -533,6 +533,23 @@
     }
   }
 
+  // A tab left open for a while shows stale slots: refresh them when the visitor comes back.
+  async function refreshSlots() {
+    if (document.hidden || !state.config || !state.today || state.sending) return;
+    try {
+      await Promise.all([...state.months.keys()].map((m) => loadMonth(m, true)));
+    } catch {
+      return;
+    }
+    if (state.slotId && !findSlot(state.slotId)) {
+      state.slotId = null;
+      state.formError = t('err.taken');
+    }
+    if (state.date && !state.done && !slotsOn(state.date).length) state.date = null;
+    renderBooking();
+  }
+  document.addEventListener('visibilitychange', refreshSlots);
+
   // ---------- start ----------
 
   async function init() {
