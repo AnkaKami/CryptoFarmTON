@@ -1,0 +1,129 @@
+{
+  "timezone": "Asia/Ho_Chi_Minh",
+  "salon": {
+    "name": "Tóc Studio",
+    "area": {
+      "ru": "Тхаодьен, Тхудык, Хошимин",
+      "en": "Thao Dien, Thu Duc, Ho Chi Minh City",
+      "vi": "Thảo Điền, TP. Thủ Đức, TP. Hồ Chí Minh"
+    },
+    "addressNote": {
+      "ru": "Точный адрес и как пройти пришлём вместе с подтверждением записи.",
+      "en": "We send the exact address and directions together with your confirmation.",
+      "vi": "Địa chỉ chính xác và cách đi sẽ được gửi kèm xác nhận lịch hẹn."
+    },
+    "hours": {
+      "ru": "Ежедневно, 9:00–20:00",
+      "en": "Daily, 9:00–20:00",
+      "vi": "Hằng ngày, 9:00–20:00"
+    },
+    "contacts": {
+      "phone": "",
+      "zalo": "",
+      "telegram": "",
+      "whatsapp": "",
+      "instagram": ""
+    }
+  },
+  "lengths": [40, 50, 60, 70, 80],
+  "masters": [
+    {
+      "id": "anna",
+      "name": { "ru": "Анна", "en": "Anna", "vi": "Anna" },
+      "role": {
+        "ru": "Капсулы и ленты, славянские волосы",
+        "en": "Keratin bonds and tape-ins, Slavic hair",
+        "vi": "Nối keratin và nối băng keo, tóc Slavic"
+      },
+      "years": 7
+    },
+    {
+      "id": "linh",
+      "name": { "ru": "Линь", "en": "Linh", "vi": "Linh" },
+      "role": {
+        "ru": "Микрокапсулы, тонкие и короткие волосы",
+        "en": "Micro bonds for fine and short hair",
+        "vi": "Nối micro cho tóc mỏng và tóc ngắn"
+      },
+      "years": 5
+    },
+    {
+      "id": "marina",
+      "name": { "ru": "Марина", "en": "Marina", "vi": "Marina" },
+      "role": {
+        "ru": "Коррекция, снятие и подбор оттенка",
+        "en": "Re-application, removal and colour matching",
+        "vi": "Nối lại, tháo tóc và chọn màu"
+      },
+      "years": 4
+    }
+  ],
+  "services": [
+    {
+      "id": "keratin",
+      "name": { "ru": "Капсульное наращивание", "en": "Keratin bond extensions", "vi": "Nối tóc keratin" },
+      "details": {
+        "ru": "Горячий кератин, 100–150 прядей. Цена с волосами 50 см.",
+        "en": "Hot keratin, 100–150 strands. Price includes 50 cm hair.",
+        "vi": "Keratin nóng, 100–150 lọn. Giá đã gồm tóc 50 cm."
+      },
+      "duration": 240,
+      "priceFrom": 8500000
+    },
+    {
+      "id": "micro",
+      "name": { "ru": "Микрокапсулы", "en": "Micro bonds", "vi": "Nối micro" },
+      "details": {
+        "ru": "Для тонких волос, висков и чёлки, 150–250 прядей.",
+        "en": "For fine hair, temples and fringe, 150–250 strands.",
+        "vi": "Cho tóc mỏng, thái dương và mái, 150–250 lọn."
+      },
+      "duration": 300,
+      "priceFrom": 11000000
+    },
+    {
+      "id": "tape",
+      "name": { "ru": "Ленточное наращивание", "en": "Tape-in extensions", "vi": "Nối tóc băng keo" },
+      "details": {
+        "ru": "Ленты 4 см, 40–60 лент. Быстро и без нагрева.",
+        "en": "4 cm tapes, 40–60 pieces. Quick, no heat.",
+        "vi": "Băng keo 4 cm, 40–60 miếng. Nhanh, không dùng nhiệt."
+      },
+      "duration": 120,
+      "priceFrom": 6000000
+    },
+    {
+      "id": "correction",
+      "name": { "ru": "Коррекция", "en": "Re-application", "vi": "Nối lại" },
+      "details": {
+        "ru": "Снятие, перекапсуляция и наращивание ваших же прядей.",
+        "en": "Removal, re-bonding and re-applying your own strands.",
+        "vi": "Tháo, làm lại keratin và nối lại chính tóc của bạn."
+      },
+      "duration": 240,
+      "priceFrom": 3500000
+    },
+    {
+      "id": "removal",
+      "name": { "ru": "Снятие", "en": "Removal", "vi": "Tháo tóc nối" },
+      "details": {
+        "ru": "Бережное снятие капсул или лент, мытьё и сушка.",
+        "en": "Gentle removal of bonds or tapes, wash and dry.",
+        "vi": "Tháo keratin hoặc băng keo nhẹ nhàng, gội và sấy."
+      },
+      "duration": 60,
+      "priceFrom": 600000
+    },
+    {
+      "id": "consult",
+      "name": { "ru": "Консультация", "en": "Consultation", "vi": "Tư vấn" },
+      "details": {
+        "ru": "Подбор длины, объёма и оттенка по кольцу образцов.",
+        "en": "Choosing length, volume and shade from the swatch ring.",
+        "vi": "Chọn độ dài, độ dày và màu theo vòng mẫu tóc."
+      },
+      "duration": 30,
+      "priceFrom": 0
+    }
+  ]
+}

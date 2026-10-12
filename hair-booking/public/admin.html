@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Панель мастера</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Yeseva+One&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/calendar.js" defer></script>
+  <script src="/js/admin.js" defer></script>
+</head>
+<body>
+  <div class="adm-login wrap" id="login" hidden>
+    <form id="login-form">
+      <p class="eyebrow salon-name">Tóc Studio</p>
+      <h1>Вход для мастеров</h1>
+      <div class="field">
+        <label for="password">Пароль</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+      </div>
+      <p class="alert alert-error" id="login-error" role="alert" hidden></p>
+      <button class="btn btn-primary" type="submit" id="login-submit">Войти</button>
+      <a class="muted" href="/">← На сайт</a>
+    </form>
+  </div>
+
+  <div id="app" hidden>
+    <header class="top adm-top">
+      <div class="wrap">
+        <a class="brand" href="/"><span class="salon-name">Tóc Studio</span><small>панель мастера</small></a>
+        <div class="adm-tabs" role="tablist" aria-label="Разделы панели">
+          <button class="adm-tab" type="button" role="tab" id="tab-slots" aria-selected="true" aria-controls="panel-slots">Окошки</button>
+          <button class="adm-tab" type="button" role="tab" id="tab-bookings" aria-selected="false" aria-controls="panel-bookings">Заявки<span class="badge" id="new-badge" hidden>0</span></button>
+        </div>
+        <button class="btn btn-ghost btn-sm" type="button" id="logout">Выйти</button>
+      </div>
+    </header>
+
+    <main class="adm-main wrap">
+      <section id="panel-slots" role="tabpanel" aria-labelledby="tab-slots">
+        <div class="adm-grid">
+          <div class="card">
+            <div class="card-head">
+              <h2>Календарь</h2>
+              <div class="field">
+                <label class="visually-hidden" for="adm-master">Показать мастера</label>
+                <select id="adm-master"></select>
+              </div>
+            </div>
+            <div id="adm-calendar"><p class="skeleton">Загружаем…</p></div>
+            <div class="cal-legend">
+              <span><span class="cal-mark m-free">2</span> свободно</span>
+              <span><span class="cal-mark m-booked">1</span> занято</span>
+              <span><i class="lg-today"></i> сегодня</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="card" id="day-card" aria-live="polite"></div>
+
+            <div class="card">
+              <div class="card-head">
+                <h2>Добавить окошки</h2>
+              </div>
+              <form class="add-form" id="add-form" novalidate>
+                <div class="row">
+                  <div class="field">
+                    <label for="add-master">Мастер</label>
+                    <select id="add-master" required></select>
+                  </div>
+                  <div class="field">
+                    <label for="add-duration">Длительность окошка</label>
+                    <select id="add-duration"></select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="field">
+                    <label for="add-from">С какого дня</label>
+                    <input id="add-from" type="date" required>
+                  </div>
+                  <div class="field">
+                    <label for="add-to">По какой день</label>
+                    <input id="add-to" type="date" required>
+                  </div>
+                </div>
+                <div class="field">
+                  <span class="label" id="wd-label">Дни недели</span>
+                  <div class="chips wd-chips" id="add-weekdays" role="group" aria-labelledby="wd-label"></div>
+                </div>
+                <div class="field">
+                  <span class="label" id="times-label">Время начала</span>
+                  <div class="chips time-chips" id="add-times" role="group" aria-labelledby="times-label"></div>
+                  <div class="custom-time">
+                    <label class="visually-hidden" for="add-custom">Другое время</label>
+                    <input id="add-custom" type="time" step="900">
+                    <button class="btn btn-quiet btn-sm" type="button" id="add-custom-btn">Добавить время</button>
+                  </div>
+                </div>
+                <p class="add-summary" id="add-summary"></p>
+                <p class="alert" id="add-result" role="status" hidden></p>
+                <div>
+                  <button class="btn btn-primary" type="submit" id="add-submit">Добавить окошки</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="panel-bookings" role="tabpanel" aria-labelledby="tab-bookings" hidden>
+        <div class="card-head">
+          <h2>Заявки</h2>
+          <div class="chips" id="bk-filter" role="group" aria-label="Фильтр заявок"></div>
+        </div>
+        <div class="bookings" id="bk-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>

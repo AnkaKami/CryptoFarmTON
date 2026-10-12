@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Tóc Studio — наращивание волос в Хошимине</title>
+  <meta name="description" content="Наращивание волос в Хошимине: капсулы, микрокапсулы, ленты. Свободные окошки мастеров и онлайн-запись.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Yeseva+One&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/i18n.js" defer></script>
+  <script src="/js/calendar.js" defer></script>
+  <script src="/js/app.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="#top"><span id="brand-name">Tóc Studio</span><small data-i18n="brand.sub">наращивание волос · Хошимин</small></a>
+      <nav class="nav" aria-label="Разделы">
+        <a href="#services" data-i18n="nav.services">Услуги и цены</a>
+        <a href="#masters" data-i18n="nav.masters">Мастера</a>
+        <a href="#booking" data-i18n="nav.booking">Свободные окошки</a>
+        <a href="#info" data-i18n="nav.info">Как добраться</a>
+      </nav>
+      <div class="lang" role="group" aria-label="Язык / Language / Ngôn ngữ">
+        <button type="button" data-lang="ru" aria-pressed="true">RU</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        <button type="button" data-lang="vi" aria-pressed="false">VI</button>
+      </div>
+      <a class="btn btn-primary" href="#booking" data-i18n="cta.book">Записаться</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <p class="eyebrow" data-i18n="hero.eyebrow">Наращивание волос в Хошимине</p>
+          <h1 data-i18n="hero.title">Длина, которую не отличить от своей</h1>
+          <p class="lead" data-i18n="hero.lead">Капсулы, микрокапсулы и ленты на славянских и азиатских волосах. Свободные окошки мастеров видны в календаре — выберите время и оставьте заявку за минуту.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#booking" data-i18n="hero.pick">Выбрать окошко</a>
+            <a class="btn btn-ghost" href="#services" data-i18n="hero.prices">Цены</a>
+          </div>
+          <dl class="facts">
+            <div><dt>40–80 см</dt><dd data-i18n="fact.length">длина прядей</dd></div>
+            <div><dt>#1 → #613</dt><dd data-i18n="fact.tones">оттенки на кольце образцов</dd></div>
+            <div><dt data-i18n="fact.methods.v">3 техники</dt><dd data-i18n="fact.methods">капсулы, микрокапсулы, ленты</dd></div>
+          </dl>
+        </div>
+        <figure class="ring" aria-hidden="true">
+          <div class="ring-bar"></div>
+          <div class="strands">
+            <div class="strand-item t-1"><div class="strand"></div><span class="strand-code">#1</span></div>
+            <div class="strand-item t-2"><div class="strand"></div><span class="strand-code">#2</span></div>
+            <div class="strand-item t-4"><div class="strand"></div><span class="strand-code">#4</span></div>
+            <div class="strand-item t-6"><div class="strand"></div><span class="strand-code">#6</span></div>
+            <div class="strand-item t-8"><div class="strand"></div><span class="strand-code">#8</span></div>
+            <div class="strand-item t-10"><div class="strand"></div><span class="strand-code">#10</span></div>
+            <div class="strand-item t-12"><div class="strand"></div><span class="strand-code">#12</span></div>
+            <div class="strand-item t-18"><div class="strand"></div><span class="strand-code">#18</span></div>
+            <div class="strand-item t-24"><div class="strand"></div><span class="strand-code">#24</span></div>
+            <div class="strand-item t-613"><div class="strand"></div><span class="strand-code">#613</span></div>
+            <div class="strand-item t-60"><div class="strand"></div><span class="strand-code">#60</span></div>
+          </div>
+          <figcaption class="ring-caption" data-i18n="ring.caption">Кольцо образцов: цифра — номер оттенка. Подберём прядь под ваш цвет на консультации.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 data-i18n="services.title">Услуги и цены</h2>
+          <p data-i18n="services.lead">Итоговая цена зависит от длины, количества прядей и выбранных волос. Точную сумму мастер назовёт до начала работы.</p>
+        </div>
+        <ul class="prices" id="prices"><li class="skeleton">…</li></ul>
+        <p class="price-note" data-i18n="services.note">Цены во вьетнамских донгах. Длительность указана примерно.</p>
+      </div>
+    </section>
+
+    <section class="section" id="masters">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 data-i18n="masters.title">Мастера</h2>
+          <p data-i18n="masters.lead">У каждого мастера своё расписание. Нажмите «Окошки мастера», чтобы увидеть только его свободное время.</p>
+        </div>
+        <div class="masters" id="masters-list"></div>
+      </div>
+    </section>
+
+    <section class="section" id="booking">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 data-i18n="booking.title">Свободные окошки</h2>
+          <p data-i18n="booking.lead">Розовым отмечены дни, где есть свободное время. Окошко закрепляется за вами сразу после заявки.</p>
+        </div>
+        <div class="booking-panel">
+          <div class="booking-toolbar">
+            <div class="chips" id="master-filter" role="group" aria-label="Мастер"></div>
+            <ol class="steps" id="steps">
+              <li class="is-current" data-i18n="booking.step1">День</li>
+              <li data-i18n="booking.step2">Время</li>
+              <li data-i18n="booking.step3">Заявка</li>
+            </ol>
+          </div>
+          <div class="booking-grid">
+            <div>
+              <div id="calendar"><p class="skeleton" data-i18n="booking.loading">Загружаем окошки…</p></div>
+              <div class="cal-legend">
+                <span><i class="lg-has"></i><span data-i18n="legend.has">есть окошки</span></span>
+                <span><i class="lg-today"></i><span data-i18n="legend.today">сегодня</span></span>
+              </div>
+            </div>
+            <div class="sheet" id="sheet" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="info">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 data-i18n="info.title">Как добраться и подготовиться</h2>
+        </div>
+        <div class="info">
+          <div>
+            <h3 data-i18n="info.where">Где мы</h3>
+            <p id="info-area"></p>
+            <p id="info-note"></p>
+          </div>
+          <div>
+            <h3 data-i18n="info.hours">Часы работы</h3>
+            <p id="info-hours"></p>
+            <div id="info-contacts" hidden>
+              <h3 data-i18n="info.contacts">Контакты</h3>
+            </div>
+          </div>
+          <div>
+            <h3 data-i18n="info.prep">Перед визитом</h3>
+            <ul class="prep">
+              <li data-i18n="info.prep1">Вымойте голову шампунем без бальзама и масок: капсулы хуже держатся на скользких волосах.</li>
+              <li data-i18n="info.prep2">Приходите с сухими волосами без укладки и лака.</li>
+              <li data-i18n="info.prep3">Если планируете окрашивание, сделайте его за 1–2 дня до наращивания.</li>
+              <li data-i18n="info.prep4">Капсульное наращивание занимает 3–5 часов: возьмите с собой воду и зарядку.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <span>© <span id="year">2026</span> <span id="footer-name">Tóc Studio</span></span>
+      <a href="/admin" data-i18n="footer.admin">Вход для мастеров</a>
+    </div>
+  </footer>
+</body>
+</html>
