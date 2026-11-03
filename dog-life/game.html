@@ -1,0 +1,1665 @@
+<title>Собачья жизнь</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Ты рождаешься случайной собакой из 900 миллионов. Проживи её жизнь.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Golos+Text:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Unbounded:wght@500;700&display=swap">
+<style>
+/* Layout: one phone-width column (max 460px). Screens swap in place: dot lottery → profile + story card → kennel card. */
+:root {
+  --bg: #E8ECE6;
+  --surface: #F6F8F4;
+  --sunk: #DCE2DA;
+  --ink: #1C2320;
+  --muted: #59645F;
+  --line: #C8D0C9;
+  --accent: #E09A2C;
+  --accent-ink: #7A4B0B;
+  --on-accent: #221607;
+  --brass: #C9A04B;
+  --brass-ink: #33240A;
+  --cold: #6D7E91;
+  --hurt: #B8503A;
+  --good: #4E8A5A;
+  --sand: #BE9C67;
+  --o-street: #6D7E91;
+  --o-village: #BE9C67;
+  --o-pet: #E09A2C;
+  --o-chain: #85776B;
+  --o-mill: #C77F92;
+  --o-working: #4E8A5A;
+  --o-shelter: #9B6FB0;
+  --font-display: "Unbounded", "Golos Text", system-ui, sans-serif;
+  --font-story: "Literata", Georgia, "Times New Roman", serif;
+  --font-ui: "Golos Text", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-hand: "Caveat", "Segoe Print", "Comic Sans MS", cursive;
+  --r: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121614; --surface: #1B201E; --sunk: #242B28; --ink: #E6ECE7; --muted: #97A29D; --line: #313A36;
+    --accent: #F0AC45; --accent-ink: #F4C27C; --on-accent: #1E1406; --brass: #D4B061; --brass-ink: #2A1E07;
+    --cold: #8A9BB1; --hurt: #E27C64; --good: #7DBA88; --sand: #CDAF7E;
+    --o-street: #8A9BB1; --o-village: #CDAF7E; --o-pet: #F0AC45; --o-chain: #A39486; --o-mill: #D893A6; --o-working: #7DBA88; --o-shelter: #B48AC8;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121614; --surface: #1B201E; --sunk: #242B28; --ink: #E6ECE7; --muted: #97A29D; --line: #313A36;
+  --accent: #F0AC45; --accent-ink: #F4C27C; --on-accent: #1E1406; --brass: #D4B061; --brass-ink: #2A1E07;
+  --cold: #8A9BB1; --hurt: #E27C64; --good: #7DBA88; --sand: #CDAF7E;
+  --o-street: #8A9BB1; --o-village: #CDAF7E; --o-pet: #F0AC45; --o-chain: #A39486; --o-mill: #D893A6; --o-working: #7DBA88; --o-shelter: #B48AC8;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; color: inherit; }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+a { color: var(--accent-ink); }
+
+.app {
+  max-width: 460px;
+  margin: 0 auto;
+  padding-block: 12px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* top bar */
+.bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; min-height: 40px; }
+.brand { background: none; border: 0; padding: 4px 0; font-family: var(--font-display); font-weight: 700; font-size: 14px; letter-spacing: .01em; cursor: pointer; white-space: nowrap; }
+.nav { display: flex; gap: 6px; flex-wrap: nowrap; justify-content: flex-end; margin-left: auto; }
+.navbtn { background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 5px 10px; font-size: 13px; white-space: nowrap; font-weight: 500; cursor: pointer; color: var(--muted); }
+.navbtn:hover { color: var(--ink); border-color: var(--muted); }
+.navbtn .count { font-variant-numeric: tabular-nums; color: var(--ink); margin-left: 4px; }
+
+.screen { display: flex; flex-direction: column; gap: 18px; }
+
+/* intro */
+.hero h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(34px, 10vw, 44px); line-height: 1.02; margin: 6px 0 12px; letter-spacing: -.01em; text-wrap: balance; }
+.lead { font-family: var(--font-story); font-size: 19px; line-height: 1.5; margin: 0; max-width: 34ch; }
+.lottery { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+.lottery-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+.dots { display: grid; grid-template-columns: repeat(10, 1fr); gap: 7px; }
+.dots span { aspect-ratio: 1; border-radius: 50%; background: var(--c); opacity: .9; transition: transform .12s ease, box-shadow .12s ease, opacity .2s; max-width: 100%; }
+.dots.dim span { opacity: .28; }
+.dots span.hot { transform: scale(1.55); opacity: 1; box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--ink); position: relative; z-index: 1; }
+.legend { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; margin: 0; padding: 0; list-style: none; font-size: 14px; }
+.legend li { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); flex: none; }
+.legend b { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 2ch; text-align: right; }
+.reveal { border-top: 1px dashed var(--line); padding-top: 14px; display: flex; flex-direction: column; gap: 12px; }
+.reveal p { margin: 0; font-family: var(--font-story); font-size: 20px; line-height: 1.4; }
+.reveal .chip { align-self: flex-start; }
+.fine { font-size: 13px; color: var(--muted); margin: 0; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 12px 20px; border-radius: 14px; border: 1.5px solid transparent; font-weight: 600; font-size: 17px; cursor: pointer; text-align: center; }
+.btn-primary { background: var(--accent); color: var(--on-accent); }
+.btn-primary:hover { filter: brightness(1.05); }
+.btn-ghost { background: transparent; border-color: var(--line); color: var(--ink); }
+.btn-ghost:hover { border-color: var(--muted); }
+.btn[disabled] { opacity: .55; cursor: default; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn-row .btn { flex: 1 1 160px; }
+.block { width: 100%; }
+
+.chip { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 500; padding: 4px 10px 4px 8px; border-radius: 999px; background: var(--sunk); color: var(--ink); }
+.chip i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
+
+/* game */
+.profile { display: grid; grid-template-columns: 132px 1fr; gap: 16px; align-items: center; }
+.portrait { width: 132px; height: 132px; border-radius: 50%; background: var(--sunk); box-shadow: inset 0 0 0 3px var(--c, var(--line)); max-width: 100%; }
+.who { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.tag { align-self: flex-start; font-family: var(--font-hand); font-weight: 700; font-size: 30px; line-height: 1; padding: 6px 16px 8px; border-radius: 999px; background: var(--brass); color: var(--brass-ink); max-width: 100%; overflow-wrap: anywhere; }
+.tag.empty { background: transparent; color: var(--muted); border: 1.5px dashed var(--line); font-size: 26px; }
+.breed { font-size: 14px; color: var(--muted); }
+.age { font-family: var(--font-display); font-weight: 700; font-size: 26px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+
+.meters { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; }
+.meter { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; align-items: baseline; min-width: 0; }
+.meter .ml { font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.meter .mv { font-size: 13px; font-variant-numeric: tabular-nums; font-weight: 600; }
+.meter .mbar { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--sunk); overflow: hidden; }
+.meter .mbar i { display: block; height: 100%; width: 50%; border-radius: 3px; background: var(--c); transition: width .45s ease; }
+.meter.low .mbar i { background: var(--hurt); }
+.meter.low .mv { color: var(--hurt); }
+
+.story { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 14px; }
+.story .text { font-family: var(--font-story); font-size: 19px; line-height: 1.5; margin: 0; }
+.story .out { font-family: var(--font-story); font-style: italic; font-size: 18px; line-height: 1.5; margin: 0; }
+.story .death { font-family: var(--font-story); font-size: 19px; line-height: 1.5; margin: 0; padding-left: 12px; border-left: 3px solid var(--hurt); }
+.story .picked { font-size: 14px; color: var(--muted); margin: 0; }
+.choices { display: flex; flex-direction: column; gap: 8px; }
+.choice { text-align: left; background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; padding: 13px 16px; font-size: 16px; font-weight: 500; cursor: pointer; line-height: 1.3; }
+.choice:hover { border-color: var(--accent); }
+.deltas { display: flex; flex-wrap: wrap; gap: 6px; }
+.delta { font-size: 13px; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: var(--sunk); font-variant-numeric: tabular-nums; }
+.delta.up { color: var(--good); }
+.delta.down { color: var(--hurt); }
+
+.trail { display: flex; flex-wrap: wrap; gap: 2px 4px; min-height: 22px; align-items: center; }
+.trail svg { width: 20px; height: 20px; flex: none; }
+.trail svg:nth-child(odd) { transform: rotate(-14deg) translateY(2px); }
+.trail svg:nth-child(even) { transform: rotate(10deg) translateY(-2px); }
+
+.log { display: flex; flex-direction: column; gap: 0; margin: 0; padding: 0; list-style: none; }
+.log li { display: grid; grid-template-columns: 76px 1fr; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.45; color: var(--muted); }
+.log li b { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.log li span { min-width: 0; }
+.section-title { font-family: var(--font-display); font-weight: 500; font-size: 15px; margin: 4px 0 0; }
+
+/* end */
+.end-head h2 { font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 1.1; margin: 0 0 6px; text-wrap: balance; }
+.end-head p { margin: 0; color: var(--muted); font-size: 16px; }
+.cardimg { width: 100%; max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 1px 0 var(--line), 0 12px 32px -18px rgba(0,0,0,.45); display: block; }
+.note { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.note h3 { margin: 0; font-size: 15px; font-weight: 600; }
+.note p { margin: 0; font-size: 15px; color: var(--muted); line-height: 1.5; }
+.sharebox { width: 100%; min-height: 84px; font: inherit; font-size: 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 10px; resize: vertical; }
+
+/* pack */
+.pack-sum { font-family: var(--font-story); font-size: 18px; margin: 0; }
+.pack-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+.pup { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 4px; align-items: flex-start; min-width: 0; }
+.pup canvas { width: 64px; height: 64px; border-radius: 50%; background: var(--sunk); }
+.pup b { font-family: var(--font-hand); font-size: 24px; line-height: 1; font-weight: 700; }
+.pup span { font-size: 13px; color: var(--muted); line-height: 1.35; }
+.empty-state { color: var(--muted); font-family: var(--font-story); font-size: 18px; margin: 0; }
+.confirm { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+/* about */
+.prose { font-family: var(--font-story); font-size: 17px; line-height: 1.6; }
+.prose h2 { font-family: var(--font-display); font-weight: 700; font-size: 24px; margin: 0 0 8px; }
+.prose h3 { font-family: var(--font-ui); font-size: 15px; font-weight: 600; margin: 18px 0 4px; }
+.prose p { margin: 0 0 8px; max-width: 62ch; }
+.prose ul { margin: 0; padding-left: 20px; }
+.prose li { margin-bottom: 6px; }
+
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 12px; font-size: 14px; max-width: min(420px, calc(100% - 32px)); z-index: 20; box-shadow: 0 10px 30px -10px rgba(0,0,0,.5); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+.fade-in { animation: fadeIn .35s ease both; }
+@keyframes fadeIn { from { opacity: .35; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+</style>
+
+<div class="app" id="app">
+  <header class="bar">
+    <button class="brand" id="brandBtn" type="button" data-t="brand">Собачья жизнь</button>
+    <nav class="nav" aria-label="Menu">
+      <button id="packBtn" class="navbtn" type="button"><span data-t="pack">Стая</span><span class="count" id="packCount">0</span></button>
+      <button id="aboutBtn" class="navbtn" type="button" data-t="about">Об игре</button>
+      <button id="langBtn" class="navbtn" type="button" aria-label="Language">EN</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- INTRO -->
+    <section id="intro" class="screen">
+      <div class="hero">
+        <h1 data-t="heroTitle">Собачья жизнь</h1>
+        <p class="lead" data-t="heroLead">В мире около 900 миллионов собак. Примерно три из четырёх живут на улице или во дворе, без своего дома. Кем родишься ты?</p>
+      </div>
+      <div class="lottery">
+        <div class="lottery-head">
+          <span class="eyebrow" data-t="dotsCap">Из 100 щенков</span>
+          <span class="fine" data-t="youDot">Ты — одна из точек</span>
+        </div>
+        <div class="dots" id="dots" aria-hidden="true"></div>
+        <ul class="legend" id="legend"></ul>
+        <div class="reveal" id="reveal" hidden>
+          <span class="chip" id="revealChip"><i></i><span></span></span>
+          <p id="revealText"></p>
+          <button class="btn btn-primary block" id="eyesBtn" type="button" data-t="openEyes">Открыть глаза</button>
+        </div>
+      </div>
+      <div class="btn-row" id="startRow">
+        <button class="btn btn-primary" id="bornBtn" type="button" data-t="born">Родиться</button>
+        <button class="btn btn-ghost" id="resumeBtn" type="button" hidden></button>
+      </div>
+      <p class="fine" data-t="fine">Одна жизнь — от минуты до пяти. Без регистрации.</p>
+    </section>
+
+    <!-- GAME -->
+    <section id="game" class="screen" hidden>
+      <div class="profile">
+        <canvas class="portrait" id="portrait" width="264" height="264" aria-hidden="true"></canvas>
+        <div class="who">
+          <div class="tag" id="nameTag"></div>
+          <span class="chip" id="whereChip"><i></i><span></span></span>
+          <span class="breed" id="breedLine"></span>
+          <span class="age" id="ageBig"></span>
+        </div>
+      </div>
+      <div class="meters" id="meters"></div>
+      <article class="story fade-in" id="story" aria-live="polite"></article>
+      <div class="trail" id="trail" aria-hidden="true"></div>
+      <h2 class="section-title" data-t="lifeLog">Вся жизнь</h2>
+      <ol class="log" id="log"></ol>
+    </section>
+
+    <!-- END -->
+    <section id="end" class="screen" hidden>
+      <div class="end-head">
+        <h2 id="endTitle"></h2>
+        <p id="endSub"></p>
+      </div>
+      <img class="cardimg" id="cardImg" alt="">
+      <div class="btn-row">
+        <button class="btn btn-primary" id="shareBtn" type="button" data-t="share">Поделиться</button>
+        <button class="btn btn-ghost" id="copyBtn" type="button" data-t="copy">Скопировать текст</button>
+      </div>
+      <textarea class="sharebox" id="shareBox" readonly hidden aria-label="Share text"></textarea>
+      <button class="btn btn-ghost block" id="againBtn" type="button" data-t="again">Прожить ещё одну жизнь</button>
+      <div class="note">
+        <h3 data-t="factTitle">В реальной жизни</h3>
+        <p id="factText"></p>
+      </div>
+      <div class="note">
+        <h3 data-t="help">Как помочь настоящим собакам</h3>
+        <p data-t="helpText"></p>
+      </div>
+      <h2 class="section-title" data-t="lifeLog">Вся жизнь</h2>
+      <ol class="log" id="endLog"></ol>
+    </section>
+
+    <!-- PACK -->
+    <section id="pack" class="screen" hidden>
+      <div class="prose"><h2 data-t="packTitle">Твоя стая</h2></div>
+      <p class="pack-sum" id="packSum"></p>
+      <div class="pack-grid" id="packGrid"></div>
+      <div class="confirm" id="clearRow">
+        <button class="btn btn-ghost" id="clearBtn" type="button" data-t="clear">Очистить стаю</button>
+      </div>
+      <button class="btn btn-primary block" id="packBack" type="button" data-t="back">Назад</button>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="screen" hidden>
+      <div class="prose" id="aboutBody"></div>
+      <button class="btn btn-primary block" id="aboutBack" type="button" data-t="back">Назад</button>
+    </section>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</div>
+
+<script>
+(function () {
+'use strict';
+
+/* ---------- helpers ---------- */
+const $ = (s) => document.querySelector(s);
+const rnd = Math.random;
+const pick = (a) => a[Math.floor(rnd() * a.length)];
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+function wpick(list) {
+  let t = 0; for (const e of list) t += Math.max(0, e[1]);
+  let r = rnd() * t;
+  for (const e of list) { r -= Math.max(0, e[1]); if (r <= 0) return e[0]; }
+  return list[list.length - 1][0];
+}
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+  del(k) { try { localStorage.removeItem(k); } catch (e) {} }
+};
+function plural(n, f) { const a = n % 10, b = n % 100; if (a === 1 && b !== 11) return f[0]; if (a >= 2 && a <= 4 && (b < 12 || b > 14)) return f[1]; return f[2]; }
+
+let LANG = store.get('dl.lang', null) || (/^(ru|uk|be|kk)/i.test(navigator.language || '') ? 'ru' : 'en');
+const LI = () => (LANG === 'ru' ? 0 : 1);
+
+/* ---------- UI strings ---------- */
+const UI = {
+  ru: {
+    brand: 'Собачья жизнь', pack: 'Стая', about: 'Об игре',
+    heroTitle: 'Собачья жизнь',
+    heroLead: 'В мире около 900 миллионов собак. Примерно три из четырёх живут на улице или во дворе, без своего дома. Кем родишься ты?',
+    dotsCap: 'Из 100 щенков', youDot: 'Ты — одна из точек',
+    born: 'Родиться', openEyes: 'Открыть глаза', fine: 'Одна жизнь — от минуты до пяти. Без регистрации.',
+    resume: 'Продолжить', h: 'Здоровье', f: 'Сытость', t: 'Доверие к людям', j: 'Радость',
+    next: 'Дальше', seeCard: 'Посмотреть карточку', noName: 'Без имени', birth: 'Рождение',
+    lived: 'Прожил{|а}', share: 'Поделиться', copy: 'Скопировать текст', again: 'Прожить ещё одну жизнь',
+    copied: 'Текст скопирован', copyFail: 'Не получилось скопировать. Текст ниже, его можно выделить.',
+    shareFallback: 'Здесь кнопка «Поделиться» недоступна. Зажмите картинку, чтобы сохранить её, или скопируйте текст.',
+    lifeLog: 'Вся жизнь', factTitle: 'В реальной жизни', help: 'Как помочь настоящим собакам',
+    helpText: 'Берите собак из приюта. Стерилизуйте и прививайте своих. Поддержите местный приют или программу стерилизации уличных собак: именно это меняет цифры из этой игры.',
+    packTitle: 'Твоя стая', packEmpty: 'Здесь появятся все прожитые жизни. Пока стая пуста.',
+    clear: 'Очистить стаю', clearSure: 'Удалить все жизни?', yes: 'Да, удалить', no: 'Отмена', back: 'Назад',
+    cardHead: 'Карточка собаки', fName: 'Имя', fSex: 'Пол', fBreed: 'Порода', fHome: 'Родина', male: 'мальчик', female: 'девочка',
+    stampHome: 'Наш{ёл|ла} дом', stampNoName: 'Без имени', stampLong: 'Долгая жизнь',
+    tagline: 'Кем родишься ты?', then: 'Потом', cause: 'Причина',
+    you: 'Ты', cardAlt: 'Карточка прожитой жизни',
+    sumLives: (n) => `${n} ${plural(n, ['жизнь', 'жизни', 'жизней'])}`,
+    sumHome: (n) => `${n} ${plural(n, ['нашла', 'нашли', 'нашли'])} дом`,
+    sumMax: (s) => `самая долгая — ${s}`
+  },
+  en: {
+    brand: 'One Dog’s Life', pack: 'Pack', about: 'About',
+    heroTitle: 'One Dog’s Life',
+    heroLead: 'There are about 900 million dogs in the world. Roughly three in four live on the street or in a yard, with no home of their own. Who will you be born as?',
+    dotsCap: 'Out of 100 puppies', youDot: 'You are one of the dots',
+    born: 'Be born', openEyes: 'Open your eyes', fine: 'One life takes one to five minutes. No sign-up.',
+    resume: 'Continue', h: 'Health', f: 'Food', t: 'Trust in people', j: 'Joy',
+    next: 'Next', seeCard: 'See the card', noName: 'No name', birth: 'Birth',
+    lived: 'Lived', share: 'Share', copy: 'Copy text', again: 'Live another life',
+    copied: 'Text copied', copyFail: 'Could not copy. The text is below, you can select it.',
+    shareFallback: 'Sharing is not available here. Long-press the image to save it, or copy the text.',
+    lifeLog: 'The whole life', factTitle: 'In real life', help: 'How to help real dogs',
+    helpText: 'Adopt from a shelter. Spay, neuter and vaccinate your own dogs. Support a local shelter or a street-dog sterilisation programme: that is what changes the numbers in this game.',
+    packTitle: 'Your pack', packEmpty: 'Every life you live will appear here. The pack is empty for now.',
+    clear: 'Clear the pack', clearSure: 'Delete all lives?', yes: 'Yes, delete', no: 'Cancel', back: 'Back',
+    cardHead: 'Dog record card', fName: 'Name', fSex: 'Sex', fBreed: 'Breed', fHome: 'Born', male: 'male', female: 'female',
+    stampHome: 'Found a home', stampNoName: 'No name', stampLong: 'A long life',
+    tagline: 'Who will you be born as?', then: 'Later', cause: 'Cause',
+    you: 'You', cardAlt: 'Record card of the life you lived',
+    sumLives: (n) => `${n} ${n === 1 ? 'life' : 'lives'}`,
+    sumHome: (n) => `${n} found a home`,
+    sumMax: (s) => `longest: ${s}`
+  }
+};
+const T = (k) => UI[LANG][k];
+
+/* ---------- world data (rounded estimates) ---------- */
+const DEFP = ['чужим зверем', 'a strange animal'];
+const C = {
+  in: { n: ['Индия', 'India'], in: ['в Индии', 'in India'], d: [['Моти', 'Moti'], ['Шеру', 'Sheru', 'm'], ['Калу', 'Kalu'], ['Бхура', 'Bhura']], h: [['Арджун', 'Arjun', 'm'], ['Прия', 'Priya', 'f'], ['бабушка Шанти', 'Grandma Shanti', 'f'], ['Рави', 'Ravi', 'm']], p: ['леопардом', 'leopard'] },
+  cn: { n: ['Китай', 'China'], in: ['в Китае', 'in China'], d: [['Ванцай', 'Wangcai'], ['Доудоу', 'Doudou'], ['Хуахуа', 'Huahua']], h: [['Лин', 'Lin', 'f'], ['Вэй', 'Wei', 'm'], ['дедушка Чжан', 'Grandpa Zhang', 'm']], p: ['лисой', 'fox'], cold: 1 },
+  br: { n: ['Бразилия', 'Brazil'], in: ['в Бразилии', 'in Brazil'], d: [['Пипока', 'Pipoca'], ['Тор', 'Thor', 'm'], ['Мел', 'Mel', 'f'], ['Негиньо', 'Neguinho', 'm']], h: [['Ана', 'Ana', 'f'], ['Жуан', 'João', 'm'], ['тётя Лусия', 'Aunt Lúcia', 'f']] },
+  mx: { n: ['Мексика', 'Mexico'], in: ['в Мексике', 'in Mexico'], d: [['Фирулайс', 'Firulais', 'm'], ['Канела', 'Canela', 'f'], ['Чато', 'Chato', 'm']], h: [['Лупита', 'Lupita', 'f'], ['Мигель', 'Miguel', 'm'], ['дон Хосе', 'Don José', 'm']], p: ['койотом', 'coyote'] },
+  id: { n: ['Индонезия', 'Indonesia'], in: ['в Индонезии', 'in Indonesia'], d: [['Блэки', 'Blacky'], ['Мочи', 'Mochi'], ['Бруно', 'Bruno', 'm']], h: [['Деви', 'Dewi', 'f'], ['Буди', 'Budi', 'm']] },
+  ng: { n: ['Нигерия', 'Nigeria'], in: ['в Нигерии', 'in Nigeria'], d: [['Бинго', 'Bingo'], ['Лаки', 'Lucky'], ['Джек', 'Jack', 'm']], h: [['Чиди', 'Chidi', 'm'], ['Амака', 'Amaka', 'f']], p: ['шакалом', 'jackal'] },
+  et: { n: ['Эфиопия', 'Ethiopia'], in: ['в Эфиопии', 'in Ethiopia'], d: [['Бобби', 'Bobby'], ['Тоби', 'Toby', 'm'], ['Леми', 'Lemi']], h: [['Абебе', 'Abebe', 'm'], ['Ханна', 'Hanna', 'f']], p: ['гиеной', 'hyena'] },
+  ph: { n: ['Филиппины', 'the Philippines'], in: ['на Филиппинах', 'in the Philippines'], d: [['Бантай', 'Bantay'], ['Тагпи', 'Tagpi']], h: [['Майя', 'Maya', 'f'], ['Хосе', 'Jose', 'm']] },
+  th: { n: ['Таиланд', 'Thailand'], in: ['в Таиланде', 'in Thailand'], d: [['Дэнг', 'Daeng'], ['Мали', 'Mali', 'f']], h: [['Сомчай', 'Somchai', 'm'], ['Нок', 'Nok', 'f']] },
+  tr: { n: ['Турция', 'Turkey'], in: ['в Турции', 'in Turkey'], d: [['Карабаш', 'Karabaş', 'm'], ['Памук', 'Pamuk']], h: [['Айше', 'Ayşe', 'f'], ['Мехмет', 'Mehmet', 'm']], p: ['волком', 'wolf'], cold: 1 },
+  ru: { n: ['Россия', 'Russia'], in: ['в России', 'in Russia'], d: [['Шарик', 'Sharik', 'm'], ['Найда', 'Naida', 'f'], ['Дружок', 'Druzhok', 'm'], ['Жучка', 'Zhuchka', 'f']], h: [['бабушка Валя', 'Granny Valya', 'f'], ['Миша', 'Misha', 'm'], ['Оля', 'Olya', 'f']], p: ['волком', 'wolf'], cold: 1 },
+  ro: { n: ['Румыния', 'Romania'], in: ['в Румынии', 'in Romania'], d: [['Рекс', 'Rex', 'm'], ['Лупу', 'Lupu', 'm'], ['Лия', 'Lia', 'f']], h: [['Иоана', 'Ioana', 'f'], ['Андрей', 'Andrei', 'm']], p: ['волком', 'wolf'], cold: 1 },
+  vn: { n: ['Вьетнам', 'Vietnam'], in: ['во Вьетнаме', 'in Vietnam'], d: [['Ванг', 'Vang'], ['Мык', 'Muc']], h: [['Лан', 'Lan', 'f'], ['Минь', 'Minh', 'm']] },
+  eg: { n: ['Египет', 'Egypt'], in: ['в Египте', 'in Egypt'], d: [['Лаки', 'Lucky'], ['Симсим', 'Simsim']], h: [['Омар', 'Omar', 'm'], ['Нур', 'Nour', 'f']], p: ['шакалом', 'jackal'] },
+  ke: { n: ['Кения', 'Kenya'], in: ['в Кении', 'in Kenya'], d: [['Симба', 'Simba', 'm'], ['Бахати', 'Bahati']], h: [['Вамбуи', 'Wambui', 'f'], ['Отиено', 'Otieno', 'm']], p: ['гиеной', 'hyena'] },
+  kz: { n: ['Казахстан', 'Kazakhstan'], in: ['в Казахстане', 'in Kazakhstan'], d: [['Акбас', 'Akbas', 'm'], ['Жолбарыс', 'Zholbarys', 'm'], ['Айка', 'Aika', 'f']], h: [['Айгерим', 'Aigerim', 'f'], ['Ерлан', 'Yerlan', 'm']], p: ['волком', 'wolf'], cold: 1 },
+  us: { n: ['США', 'the US'], in: ['в США', 'in the US'], d: [['Луна', 'Luna', 'f'], ['Макс', 'Max', 'm'], ['Белла', 'Bella', 'f'], ['Купер', 'Cooper', 'm'], ['Дейзи', 'Daisy', 'f']], h: [['Эмили', 'Emily', 'f'], ['Джейк', 'Jake', 'm'], ['миссис Паркер', 'Mrs Parker', 'f']], p: ['койотом', 'coyote'] },
+  jp: { n: ['Япония', 'Japan'], in: ['в Японии', 'in Japan'], d: [['Куро', 'Kuro'], ['Хана', 'Hana', 'f'], ['Момо', 'Momo'], ['Сора', 'Sora']], h: [['Юки', 'Yuki', 'f'], ['Хиро', 'Hiro', 'm']] },
+  de: { n: ['Германия', 'Germany'], in: ['в Германии', 'in Germany'], d: [['Балу', 'Balu', 'm'], ['Белла', 'Bella', 'f'], ['Бруно', 'Bruno', 'm']], h: [['Лена', 'Lena', 'f'], ['Йонас', 'Jonas', 'm']], cold: 1 },
+  gb: { n: ['Великобритания', 'the UK'], in: ['в Великобритании', 'in the UK'], d: [['Тедди', 'Teddy', 'm'], ['Бонни', 'Bonnie', 'f'], ['Альфи', 'Alfie', 'm']], h: [['Оливер', 'Oliver', 'm'], ['Эми', 'Amy', 'f']] },
+  ca: { n: ['Канада', 'Canada'], in: ['в Канаде', 'in Canada'], d: [['Мейпл', 'Maple', 'f'], ['Чарли', 'Charlie'], ['Бо', 'Beau', 'm']], h: [['Хлоя', 'Chloé', 'f'], ['Ноа', 'Noah', 'm']], p: ['койотом', 'coyote'], cold: 1 },
+  au: { n: ['Австралия', 'Australia'], in: ['в Австралии', 'in Australia'], d: [['Руби', 'Ruby', 'f'], ['Олли', 'Ollie', 'm']], h: [['Софи', 'Sophie', 'f'], ['Джек', 'Jack', 'm']], p: ['динго', 'dingo'] },
+  kr: { n: ['Южная Корея', 'South Korea'], in: ['в Южной Корее', 'in South Korea'], d: [['Мару', 'Maru'], ['Бори', 'Bori'], ['Коко', 'Coco']], h: [['Джиу', 'Jiwoo', 'f'], ['Минджун', 'Minjun', 'm']], cold: 1 }
+};
+
+const ORDER = ['street', 'village', 'pet', 'chain', 'mill', 'working', 'shelter'];
+const ORIGINS = {
+  street: { w: 38, n: ['улица', 'street'], who: ['уличный щенок', 'a street puppy'],
+    cs: [['in', 30], ['cn', 8], ['br', 6], ['mx', 6], ['id', 6], ['ng', 5], ['et', 4], ['ph', 5], ['th', 4], ['tr', 5], ['ru', 4], ['ro', 2], ['vn', 3], ['eg', 4], ['ke', 3]],
+    places: [['под грузовиком у рынка', 'under a truck by the market'], ['за вокзалом', 'behind the train station'], ['в коробке у мусорных баков', 'in a box by the dumpsters'], ['на стройке', 'on a building site'], ['под лестницей заброшенного дома', 'under the stairs of an empty house']] },
+  village: { w: 34, n: ['деревня', 'village'], who: ['деревенский щенок', 'a village puppy'],
+    cs: [['in', 18], ['et', 9], ['ng', 9], ['mx', 8], ['br', 7], ['id', 7], ['cn', 9], ['ke', 6], ['vn', 6], ['ru', 6], ['ph', 5], ['kz', 4], ['th', 4]],
+    places: [['в сарае', 'in a shed'], ['под крыльцом', 'under a porch'], ['в куче соломы', 'in a pile of straw'], ['под старой лодкой', 'under an old boat']] },
+  pet: { w: 16, n: ['дом', 'home'], who: ['домашний щенок', 'a family puppy'],
+    cs: [['us', 32], ['br', 10], ['cn', 12], ['ru', 6], ['jp', 5], ['mx', 5], ['de', 4], ['gb', 4], ['kr', 3], ['ca', 3], ['au', 3], ['in', 4]],
+    places: [['у заводчика', 'at a breeder’s'], ['в квартире у знакомых', 'in a friend’s flat'], ['в загородном доме', 'in a country house']] },
+  chain: { w: 4, n: ['цепь', 'chain'], who: ['щенок дворовой собаки', 'a yard dog’s puppy'],
+    cs: [['ru', 30], ['cn', 25], ['kz', 12], ['ro', 10], ['us', 8], ['kr', 8], ['tr', 7]],
+    places: [['в будке у частного дома', 'in a doghouse behind a private house'], ['на складе стройматериалов', 'at a building-supply yard'], ['на дачном участке', 'on a country plot']] },
+  mill: { w: 4, n: ['ферма-питомник', 'puppy farm'], who: ['щенок с фермы-питомника', 'a puppy-farm puppy'],
+    cs: [['us', 40], ['cn', 20], ['ru', 12], ['gb', 10], ['kr', 10], ['au', 8]],
+    places: [['в клетке на ферме', 'in a cage on a breeding farm']] },
+  working: { w: 3, n: ['служба', 'working dog'], who: ['будущая рабочая собака', 'a future working dog'],
+    cs: [['ru', 20], ['kz', 14], ['us', 22], ['ca', 12], ['au', 16], ['gb', 8], ['de', 8]], places: [] },
+  shelter: { w: 1, n: ['приют', 'shelter'], who: ['щенок из приюта', 'a shelter puppy'],
+    cs: [['us', 40], ['gb', 14], ['de', 14], ['ru', 10], ['ca', 8], ['au', 8], ['ro', 6]],
+    places: [['в вольере приюта', 'in a shelter kennel']] }
+};
+
+const JOBS = {
+  sled: { place: ['в питомнике ездовых собак', 'at a sled-dog kennel'], birth: ['Вокруг сорок собак, и все хотят бежать.', 'There are forty dogs around you, and all of them want to run.'] },
+  herd: { place: ['на овечьей ферме', 'on a sheep farm'], birth: ['Первое, что ты чуешь, — запах овец.', 'The first thing you smell is sheep.'] },
+  guide: { place: ['в школе собак-поводырей', 'at a guide-dog school'], birth: ['Через год ты станешь чьими-то глазами.', 'In a year you will be someone’s eyes.'] },
+  police: { place: ['в кинологическом центре', 'at a police dog centre'], birth: ['Твоя мама — служебная собака с медалью.', 'Your mother is a police dog with a medal.'] }
+};
+
+const COATS = {
+  ginger: ['#B8642E', '#E8C59A'], tan: ['#C9985A', '#EBD5B0'], black: ['#2B2623', '#3D3631'], brown: ['#6B4229', '#A77A52'],
+  cream: ['#E6D0A8', '#F4E8D2'], white: ['#EFEAE1', '#FAF7F1'], grey: ['#8C8985', '#D8D4CE'], chocolate: ['#5B3927', '#7B5139'],
+  fawn: ['#D5AC77', '#E9CFA6'], brindle: ['#6F4F33', '#8E6C4B'], apricot: ['#E0AD7A', '#F0CEA5'], blackwhite: ['#2B2623', '#F2EEE6'], blacktan: ['#2B2623', '#C79457']
+};
+const BREEDS = {
+  mutt: { n: ['метис', 'mixed breed'], size: 'm', ears: ['up', 'up', 'up', 'half', 'flop', 'flop'], coats: ['ginger', 'tan', 'black', 'brown', 'cream', 'grey', 'blackwhite', 'brindle'] },
+  pariah: { n: ['индийская пария', 'Indian pariah dog'], size: 'm', ears: ['up'], coats: ['ginger', 'tan', 'tan', 'cream', 'brown'] },
+  aspin: { n: ['аспин', 'aspin'], size: 'm', ears: ['up', 'up', 'half'], coats: ['tan', 'ginger', 'black', 'cream', 'blackwhite'] },
+  baladi: { n: ['балади', 'baladi dog'], size: 'm', ears: ['up'], coats: ['tan', 'cream', 'ginger', 'white'] },
+  lab: { n: ['лабрадор', 'Labrador'], size: 'l', ears: ['flop'], coats: ['black', 'cream', 'chocolate'] },
+  golden: { n: ['золотистый ретривер', 'golden retriever'], size: 'l', ears: ['flop'], coats: ['apricot', 'cream'] },
+  dachs: { n: ['такса', 'dachshund'], size: 's', ears: ['flop'], coats: ['ginger', 'blacktan', 'chocolate'], risk: 'back' },
+  spitz: { n: ['шпиц', 'Pomeranian'], size: 's', ears: ['upsmall'], coats: ['ginger', 'cream', 'white'], snout: 'short' },
+  frenchie: { n: ['французский бульдог', 'French bulldog'], size: 's', ears: ['bat'], coats: ['fawn', 'brindle', 'black'], snout: 'flat', risk: 'breath' },
+  pug: { n: ['мопс', 'pug'], size: 's', ears: ['flopsmall'], coats: ['fawn'], snout: 'flat', mask: 1, risk: 'breath' },
+  gsd: { n: ['немецкая овчарка', 'German shepherd'], size: 'l', ears: ['upbig'], coats: ['tan'], mask: 1, risk: 'hips' },
+  husky: { n: ['хаски', 'husky'], size: 'm', ears: ['up'], coats: ['grey', 'blackwhite'], white: 1, blue: 1 },
+  laika: { n: ['лайка', 'laika'], size: 'm', ears: ['up'], coats: ['grey', 'blackwhite', 'ginger', 'white'] },
+  yorkie: { n: ['йоркширский терьер', 'Yorkshire terrier'], size: 's', ears: ['upsmall'], coats: ['blacktan'], snout: 'short' },
+  corgi: { n: ['корги', 'corgi'], size: 's', ears: ['upbig'], coats: ['ginger'], white: 1 },
+  poodle: { n: ['пудель', 'poodle'], size: 'm', ears: ['flop'], coats: ['white', 'apricot', 'black'] },
+  beagle: { n: ['бигль', 'beagle'], size: 'm', ears: ['flop'], coats: ['tan'], white: 1 },
+  chi: { n: ['чихуахуа', 'chihuahua'], size: 's', ears: ['upbig'], coats: ['cream', 'tan', 'black', 'fawn'], snout: 'short' },
+  collie: { n: ['бордер-колли', 'border collie'], size: 'm', ears: ['half'], coats: ['black'], white: 1 },
+  tobet: { n: ['тобет', 'Kazakh tobet'], size: 'g', ears: ['flop'], coats: ['cream', 'white', 'tan'] },
+  kelpie: { n: ['келпи', 'kelpie'], size: 'm', ears: ['up'], coats: ['tan', 'black', 'chocolate'] },
+  shiba: { n: ['сиба-ину', 'Shiba Inu'], size: 's', ears: ['up'], coats: ['ginger'], white: 1 },
+  jindo: { n: ['чиндо', 'Jindo'], size: 'm', ears: ['up'], coats: ['cream', 'ginger', 'white'] }
+};
+
+/* ---------- life creation ---------- */
+function pickName(cid, sex) {
+  const list = C[cid].d.filter((d) => !d[2] || d[2] === sex);
+  const n = pick(list.length ? list : C[cid].d);
+  return [n[0], n[1]];
+}
+function pickHuman(cid, sex) {
+  const list = C[cid].h.filter((h) => !sex || h[2] === sex);
+  const h = pick(list.length ? list : C[cid].h);
+  return [h[0], h[1], h[2]];
+}
+function chooseBreed(o, cid, job) {
+  if (o === 'street' || o === 'village') {
+    if (cid === 'in' && rnd() < 0.6) return 'pariah';
+    if (cid === 'ph') return 'aspin';
+    if (cid === 'eg') return 'baladi';
+    if (cid === 'kz' && o === 'village' && rnd() < 0.4) return 'tobet';
+    return 'mutt';
+  }
+  if (o === 'chain') {
+    if (cid === 'kz' && rnd() < 0.4) return 'tobet';
+    if (cid === 'ru' && rnd() < 0.25) return 'laika';
+    return wpick([['mutt', 6], ['gsd', 2], ['laika', 1]]);
+  }
+  if (o === 'mill') return wpick([['frenchie', 4], ['spitz', 4], ['yorkie', 3], ['pug', 2], ['chi', 2], ['poodle', 2], ['corgi', 2], ['golden', 1]]);
+  if (o === 'shelter') return wpick([['mutt', 8], ['gsd', 1], ['lab', 1], ['husky', 1], ['chi', 1]]);
+  if (o === 'working') {
+    if (job === 'sled') return cid === 'ru' ? 'laika' : 'husky';
+    if (job === 'herd') return cid === 'kz' ? 'tobet' : cid === 'au' ? pick(['kelpie', 'collie']) : 'collie';
+    if (job === 'guide') return pick(['lab', 'lab', 'golden']);
+    return 'gsd';
+  }
+  if (cid === 'jp' && rnd() < 0.35) return 'shiba';
+  if (cid === 'kr' && rnd() < 0.3) return 'jindo';
+  return wpick([['mutt', 5], ['lab', 3], ['golden', 2], ['dachs', 2], ['spitz', 3], ['frenchie', 3], ['gsd', 2], ['husky', 2], ['yorkie', 2], ['corgi', 1], ['poodle', 2], ['beagle', 1], ['chi', 2], ['pug', 1]]);
+}
+function makeLook(bid) {
+  const b = BREEDS[bid];
+  const ck = pick(b.coats);
+  const [coat, muz] = COATS[ck];
+  const L = { coat, muzzle: muz, ear: pick(b.ears), snout: b.snout || 'long', eye: '#2A1C14', patch: null, blaze: false, chest: null };
+  if (b.white || ck === 'blackwhite') { L.muzzle = '#F2EEE6'; L.blaze = true; L.chest = '#F2EEE6'; }
+  if (ck === 'blacktan') L.chest = muz;
+  if (b.mask) L.muzzle = '#2E2622';
+  if (b.blue && rnd() < 0.5) L.eye = '#7FB2DA';
+  if (bid === 'mutt' || bid === 'aspin') {
+    if (rnd() < 0.3) L.patch = { c: coat === '#2B2623' ? '#F2EEE6' : pick(['#2B2623', '#F2EEE6']), side: rnd() < 0.5 ? -1 : 1 };
+    if (!L.blaze && rnd() < 0.25) { L.blaze = true; L.chest = '#F2EEE6'; }
+  }
+  return L;
+}
+function jobFor(cid) {
+  return ({ ru: pick(['sled', 'police']), kz: 'herd', us: pick(['guide', 'police']), ca: 'sled', au: 'herd', gb: 'guide', de: 'police' })[cid] || 'herd';
+}
+function newLife() {
+  const origin = wpick(ORDER.map((o) => [o, ORIGINS[o].w]));
+  const cid = wpick(ORIGINS[origin].cs);
+  const sex = rnd() < 0.5 ? 'm' : 'f';
+  const job = origin === 'working' ? jobFor(cid) : null;
+  const breed = chooseBreed(origin, cid, job);
+  const size = BREEDS[breed].size;
+  const L = ({ s: 14.5, m: 13, l: 11.5, g: 10 })[size] + (rnd() * 3 - 1.5);
+  const place = origin === 'working' ? JOBS[job].place : pick(ORIGINS[origin].places);
+  const named = ['pet', 'working', 'chain', 'shelter'].includes(origin) || (origin === 'village' && rnd() < 0.6);
+  const human = ['pet', 'working', 'chain', 'village'].includes(origin) ? pickHuman(cid) : null;
+  const base = {
+    street: { h: 70, f: 45, t: 30, j: 50 }, village: { h: 75, f: 55, t: 55, j: 60 }, pet: { h: 90, f: 85, t: 80, j: 80 },
+    chain: { h: 70, f: 55, t: 45, j: 35 }, mill: { h: 65, f: 65, t: 40, j: 40 }, working: { h: 90, f: 80, t: 70, j: 70 }, shelter: { h: 75, f: 70, t: 45, j: 40 }
+  }[origin];
+  return {
+    v: 1, id: Date.now() + Math.floor(rnd() * 1000), no: 10000 + Math.floor(rnd() * 89999),
+    origin, origin0: origin, cid, cid0: cid, sex, job, breed, L, place,
+    look: makeLook(breed), name: named ? pickName(cid, sex) : null, human,
+    months: 0, step: 0, st: Object.assign({}, base), flags: {}, used: [], log: [], trail: [],
+    alive: true, cause: null, phase: 'outcome', ev: null, best: null, bestScore: 0, kennel: 1 + Math.floor(rnd() * 48)
+  };
+}
+
+/* ---------- text rendering ---------- */
+let S = null;
+function vars(k, lang) {
+  const li = lang === 'ru' ? 0 : 1;
+  switch (k) {
+    case 'name': return S.name ? S.name[li] : UI[lang].noName;
+    case 'human': return S.human ? S.human[li] : (li ? 'a person' : 'человек');
+    case 'countryIn': return C[S.cid].in[li];
+    case 'country': case 'dest': return C[S.cid].n[li];
+    case 'place': return S.place[li];
+    case 'predator': return (C[S.cid].p || DEFP)[li];
+    case 'kennel': return String(S.kennel);
+    default: return '';
+  }
+}
+function capSent(s) { return s.replace(/(^|[.!?…]\s+|«|“)([a-zа-яё])/g, (m, a, b) => a + b.toUpperCase()); }
+function fmt(p, lang) {
+  const pair = typeof p === 'function' ? p(S) : p;
+  let s = pair[lang === 'ru' ? 0 : 1];
+  s = s.replace(/\{([^{}|]*)\|([^{}|]*)\}/g, (_, a, b) => (S && S.sex === 'f' ? b : a));
+  s = s.replace(/%(\w+)%/g, (_, k) => vars(k, lang));
+  return capSent(s);
+}
+const both = (p) => ({ ru: fmt(p, 'ru'), en: fmt(p, 'en') });
+const L1 = (o) => (o ? o[LANG] : '');
+function ageStr(m, lang) {
+  lang = lang || LANG;
+  if (m < 12) return lang === 'ru' ? `${m} ${plural(m, ['месяц', 'месяца', 'месяцев'])}` : `${m} month${m === 1 ? '' : 's'}`;
+  const y = Math.floor(m / 12);
+  return lang === 'ru' ? `${y} ${plural(y, ['год', 'года', 'лет'])}` : `${y} year${y === 1 ? '' : 's'}`;
+}
+
+/* ---------- events ---------- */
+const PUP = ['pup'], YA = ['young', 'adult'], YAO = ['young', 'adult', 'old'], ALL = ['pup', 'young', 'adult', 'old'];
+const EV = [];
+const ev = (o) => EV.push(o);
+const adoptP = (S, k) => clamp(k * (S.months < 12 ? 0.55 : S.months / 12 >= 8 ? 0.12 : 0.3) * (S.flags.post ? 1.5 : 1), 0, 0.95);
+
+// --- street ---
+ev({ id: 's_mom', o: ['street'], a: PUP, once: 1, w: 2, if: (S) => S.months <= 2,
+  t: ['Мама уходит искать еду. Вокруг гудят машины.', 'Your mother leaves to find food. Cars roar all around.'],
+  c: [{ l: ['Ждать её в укрытии', 'Wait for her in hiding'], r: [
+        [0.8, ['Она возвращается под утро. Ты пьёшь молоко и засыпаешь.', 'She returns at dawn. You nurse and fall asleep.'], { f: 15, j: 5 }],
+        [0.2, ['Она не возвращается до вечера. Ты дрожишь от голода.', 'She does not come back until evening. You shiver with hunger.'], { f: -15, h: -5 }]] },
+      { l: ['Выползти следом', 'Crawl after her'], r: [
+        [0.45, ['Ты находишь её у лотка с едой. Продавец бросает вам корку.', 'You find her by a food stall. The vendor tosses you a crust.'], { f: 20, j: 10, t: 5 }],
+        [0.4, ['Ты теряешь её след и долго скулишь под чужим забором.', 'You lose her trail and whimper for hours under a strange fence.'], { h: -10, j: -15 }],
+        [0.15, ['Ты выкатываешься на дорогу.', 'You tumble out onto the road.'], { die: 'car' }]] }] });
+ev({ id: 's_rain', o: ['street', 'village'], a: ALL,
+  t: ['Ночью начинается ливень. Укрытие заливает.', 'A downpour starts at night. Your shelter floods.'],
+  c: [{ l: ['Прижаться к остальным', 'Huddle with the others'], r: [[1, ['Мокро, но тепло. Утром выходит солнце.', 'Wet, but warm. In the morning the sun comes out.'], { h: -5, j: 5 }]] },
+      { l: ['Искать сухое место', 'Look for a dry spot'], r: [
+        [0.6, ['Под навесом магазина сухо. Охранник делает вид, что тебя не видит.', 'It is dry under a shop awning. The guard pretends not to see you.'], { h: 5, t: 5 }],
+        [0.4, ['Сухого места нет. Ты простужаешься.', 'There is no dry spot. You catch a chill.'], { h: -20 }]] }] });
+ev({ id: 's_kid', o: ['street'], a: ['pup', 'young'], once: 1,
+  t: ['Ребёнок протягивает тебе кусок лепёшки.', 'A child holds out a piece of flatbread.'],
+  c: [{ l: ['Подойти', 'Come closer'], r: [
+        [0.7, ['Это %human%. Теперь %human% приходит каждый день.', 'This is %human%. Now %human% comes every day.'], { f: 20, t: 15, j: 10, human: 1 }],
+        [0.3, ['Взрослые кричат на ребёнка и отгоняют тебя палкой.', 'The adults shout at the child and chase you off with a stick.'], { t: -15, h: -5 }]] },
+      { l: ['Спрятаться', 'Hide'], r: [[1, ['Лепёшка остаётся на земле. Ты съедаешь её, когда все уходят.', 'The bread stays on the ground. You eat it once everyone has gone.'], { f: 8 }]] }] });
+ev({ id: 's_trash', o: ['street'], a: ALL,
+  t: ['Из мусорного бака пахнет курицей.', 'The dumpster smells of chicken.'],
+  c: [{ l: ['Залезть внутрь', 'Climb in'], r: [
+        [0.65, ['Пир. Кости, рис, половина бургера.', 'A feast. Bones, rice, half a burger.'], { f: 25, j: 10 }],
+        [0.2, ['Ты режешь лапу о стекло.', 'You cut your paw on broken glass.'], { f: 10, h: -18 }],
+        [0.15, ['Еда тухлая. Ночью тебя выворачивает наизнанку.', 'The food is rotten. At night you are violently sick.'], { h: -25 }]] },
+      { l: ['Пройти мимо', 'Walk past'], r: [[1, ['Ты ложишься спать голодн{ым|ой}.', 'You go to sleep hungry.'], { f: -10 }]] }] });
+ev({ id: 's_bigdog', o: ['street', 'village'], a: ['pup', 'young'],
+  t: ['Взрослый пёс рычит над кучей объедков.', 'A grown dog growls over a pile of scraps.'],
+  c: [{ l: ['Лечь на спину', 'Roll onto your back'], r: [
+        [0.7, ['Он обнюхивает тебя и отходит. Можно есть.', 'He sniffs you and steps aside. You may eat.'], { f: 20, j: 5 }],
+        [0.3, ['Он всё равно кусает.', 'He bites anyway.'], { h: -15, j: -10 }]] },
+      { l: ['Убежать', 'Run away'], r: [[1, ['Сегодня без ужина.', 'No dinner tonight.'], { f: -10 }]] }] });
+ev({ id: 's_abc', o: ['street', 'village'], a: ['pup', 'young', 'adult'], once: 1, if: (S) => !S.flags.vacc,
+  t: ['Люди в одинаковых футболках ловят собак и сажают в фургон. Пахнет больницей.', 'People in matching T-shirts catch dogs and put them in a van. It smells like a clinic.'],
+  c: [{ l: ['Даться в руки', 'Let them catch you'], r: [[1, ['Укол, шов, надрез на ухе. Через три дня тебя выпускают на ту же улицу.', 'A shot, a few stitches, a notch in your ear. Three days later they release you on the same street.'], { vacc: 1, ster: 1, h: 5, t: 10 }]] },
+      { l: ['Убежать', 'Run'], r: [[1, ['Ты уходишь дворами. Фургон уезжает без тебя.', 'You slip away through the yards. The van leaves without you.'], { j: 5 }]] }] });
+ev({ id: 's_woman', o: ['street'], a: ['pup', 'young', 'adult'],
+  t: ['Женщина садится на корточки и долго смотрит на тебя.', 'A woman crouches down and looks at you for a long time.'],
+  c: [{ l: ['Подойти и лизнуть руку', 'Come and lick her hand'], r: [
+        [(S) => (S.st.t > 45 ? 0.45 : 0.15), ['Она заворачивает тебя в шарф и уносит домой. Её зовут %human%.', 'She wraps you in her scarf and carries you home. Her name is %human%.'], { adopt: 'f', j: 25, t: 15 }],
+        [(S) => (S.st.t > 45 ? 0.55 : 0.85), ['Она гладит тебя и уходит. Ты провожаешь её до угла.', 'She strokes you and leaves. You follow her to the corner.'], { t: 5, j: 5 }]] },
+      { l: ['Отойти подальше', 'Back away'], r: [[1, ['Она вздыхает и уходит.', 'She sighs and walks away.'], {}]] }] });
+ev({ id: 's_pack', o: ['street'], a: YA, once: 1,
+  t: ['У рынка держится стая из шести собак.', 'A pack of six dogs keeps to the market.'],
+  c: [{ l: ['Прибиться к стае', 'Join the pack'], r: [
+        [0.75, ['Тебя принимают. Теперь вы спите кучей и делите находки.', 'They accept you. Now you sleep in a heap and share what you find.'], { j: 15, f: 10 }],
+        [0.25, ['Вожак против. Тебя гонят три квартала.', 'The leader says no. They chase you for three blocks.'], { h: -15, j: -10 }]] },
+      { l: ['Держаться одн{ому|ой}', 'Stay on your own'], r: [[1, ['Одн{ому|ой} тише. И холоднее.', 'Alone it is quieter. And colder.'], { j: -5 }]] }] });
+ev({ id: 's_feeder', o: ['street'], a: YAO, once: 1, if: (S) => !S.name,
+  t: ['Каждый вечер у одного и того же забора кто-то оставляет рис с курицей.', 'Every evening someone leaves rice and chicken by the same fence.'],
+  c: [{ l: ['Приходить каждый вечер', 'Come every evening'], r: [[1, ['Это %human%. Через месяц %human% даёт тебе имя: %name%.', 'It is %human%. A month later %human% gives you a name: %name%.'], { f: 25, t: 15, j: 15, human: 1, name: 1 }]] },
+      { l: ['Есть, только когда никого нет', 'Eat only when nobody is around'], r: [[1, ['Еда есть. Имени нет.', 'There is food. There is no name.'], { f: 15 }]] }] });
+ev({ id: 's_road', o: ['street'], a: YAO,
+  t: ['Мясная лавка — на той стороне большой дороги.', 'The butcher’s shop is on the other side of a big road.'],
+  c: [{ l: ['Перебежать', 'Dash across'], r: [
+        [0.72, ['Ты успеваешь. Мясник бросает тебе обрезки.', 'You make it. The butcher throws you some trimmings.'], { f: 25, j: 5 }],
+        [0.16, ['Бампер задевает тебя по бедру. Ты хромаешь неделями.', 'A bumper clips your hip. You limp for weeks.'], { h: -35 }],
+        [0.12, ['Ты не успеваешь.', 'You do not make it.'], { die: 'car' }]] },
+      { l: ['Идти в обход, через мост', 'Go the long way, over the bridge'], r: [[1, ['Долго, но лавка ещё открыта.', 'It takes a while, but the shop is still open.'], { f: 12 }]] }] });
+ev({ id: 's_poison', o: ['street', 'village'], a: YAO, once: 1,
+  t: ['Кто-то разбросал по двору куски мяса. Слишком много и слишком щедро.', 'Someone has scattered chunks of meat around the yard. Too many, too generous.'],
+  c: [{ l: ['Съесть', 'Eat'], r: [
+        [0.45, ['Просто мясо. Сегодня тебе повезло.', 'Just meat. You got lucky today.'], { f: 30 }],
+        [0.35, ['Через час начинаются судороги. Ты выживаешь чудом.', 'An hour later the convulsions start. You survive by a miracle.'], { h: -50 }],
+        [0.2, ['Мясо отравлено.', 'The meat is poisoned.'], { die: 'poison' }]] },
+      { l: ['Не трогать', 'Leave it'], r: [[1, ['Утром во дворе тихо. Нескольких знакомых собак больше нет.', 'In the morning the yard is quiet. Some of the dogs you knew are gone.'], { j: -15, t: -10 }]] }] });
+ev({ id: 's_van', o: ['street'], a: YAO, once: 1,
+  t: ['Подъезжает фургон. Люди с сачками на длинных палках.', 'A van pulls up. People with nets on long poles.'],
+  c: [{ l: ['Бежать в подворотню', 'Run into an alley'], r: [
+        [0.8, ['Ты отсиживаешься в подвале до темноты.', 'You hide in a basement until dark.'], { f: -5 }],
+        [0.2, ['Сачок оказывается быстрее. Тебя везут в приют.', 'The net is faster. They take you to a shelter.'], { to: 'shelter', j: -20 }]] },
+      { l: ['Замереть', 'Freeze'], r: [[1, ['Тебя поднимают в фургон. Внутри скулят другие собаки. Вас везут в приют.', 'They lift you into the van. Other dogs are whimpering inside. You are taken to a shelter.'], { to: 'shelter', j: -20, t: -10 }]] }] });
+ev({ id: 's_pups', o: ['street', 'village', 'chain'], a: YA, once: 1, if: (S) => S.sex === 'f' && !S.flags.ster,
+  t: ['У тебя рождаются щенки. Пятеро.', 'Your puppies are born. Five of them.'],
+  c: [{ l: ['Не отходить от них', 'Stay with them'], r: [[1, ['Ты худеешь, а они растут. Взрослым, скорее всего, станет только один.', 'You grow thin while they grow. Most likely only one of them will reach adulthood.'], { f: -20, h: -10, j: 15 }]] },
+      { l: ['Уходить за едой подальше', 'Go further for food'], r: [[1, ['Ты возвращаешься с добычей. Одного щенка уже нет.', 'You come back with food. One puppy is already gone.'], { f: 10, j: -15 }]] }] });
+ev({ id: 's_winter', o: ['street', 'village'], a: ALL, if: (S) => C[S.cid].cold,
+  t: ['Зима. Земля промёрзла, лужи звенят.', 'Winter. The ground is frozen and the puddles ring.'],
+  c: [{ l: ['Спать у теплотрассы', 'Sleep on a heating pipe'], r: [
+        [0.8, ['Трубы гудят и греют. Так можно дожить до весны.', 'The pipes hum and keep you warm. You can make it to spring like this.'], { h: -5 }],
+        [0.2, ['Трубу чинят, люк закрывают.', 'They fix the pipe and seal the hatch.'], { h: -25 }]] },
+      { l: ['Проситься в подъезд', 'Ask to be let into a building'], r: [
+        [(S) => (S.st.t > 45 ? 0.6 : 0.25), ['%human% пускает тебя на коврик у батареи.', '%human% lets you onto a mat by the radiator.'], { h: 10, t: 10, human: 1 }],
+        [(S) => (S.st.t > 45 ? 0.4 : 0.75), ['Дверь хлопает перед носом.', 'The door slams in your face.'], { h: -15, t: -10 }]] }] });
+ev({ id: 's_noise', o: ['street', 'village'], a: ALL, once: 1,
+  t: ['Праздник. Всю ночь грохочут петарды.', 'A holiday. Firecrackers bang all night.'],
+  r: [[1, ['Ты забиваешься под машину и дрожишь до рассвета.', 'You squeeze under a car and shake until dawn.'], { j: -10 }]] });
+ev({ id: 's_abroad', o: ['street'], a: ['pup', 'young', 'adult'], once: 1, if: (S) => ['in', 'ro', 'tr', 'th', 'mx', 'eg'].includes(S.cid),
+  t: ['Волонтёры фотографируют тебя для сайта «Ищу дом за границей».', 'Volunteers photograph you for a website called “Looking for a home abroad”.'],
+  c: [{ l: ['Сидеть смирно и смотреть в камеру', 'Sit still and look at the camera'], r: [
+        [(S) => (S.st.t > 40 ? 0.4 : 0.2), ['Через два месяца ты летишь в переноске. Новый дом — %dest%. Хозяина зовут %human%.', 'Two months later you fly in a crate. Your new home is in %dest%. Your person is %human%.'], { adopt: 1, abroad: 1, j: 25 }],
+        [(S) => (S.st.t > 40 ? 0.6 : 0.8), ['Фото набирает пару лайков. Никто не пишет.', 'The photo gets a couple of likes. Nobody writes.'], { j: -5 }]] },
+      { l: ['Убежать от вспышки', 'Run from the flash'], r: [[1, ['Фото получается смазанным.', 'The photo comes out blurry.'], {}]] }] });
+ev({ id: 's_limp', o: ['street', 'village'], a: YAO, if: (S) => S.st.h < 60,
+  t: ['Лапа распухла и горит.', 'Your paw is swollen and hot.'],
+  c: [{ l: ['Отлежаться', 'Lie low and rest'], r: [
+        [0.7, ['Через неделю отёк спадает.', 'A week later the swelling goes down.'], { h: 15, f: -15 }],
+        [0.3, ['Лучше не становится.', 'It does not get better.'], { h: -10, f: -15 }]] },
+      { l: ['Ковылять за едой', 'Hobble out for food'], r: [[1, ['Еды хватает, но лапа болит сильнее.', 'You find enough food, but the paw hurts more.'], { f: 15, h: -10 }]] }] });
+ev({ id: 's_old', o: ['street', 'village'], a: ['old'],
+  t: ['Морда поседела. Молодые собаки больше не уступают тебе место.', 'Your muzzle has gone grey. Young dogs no longer make way for you.'],
+  r: [[1, ['Ты спишь больше и ходишь медленнее.', 'You sleep more and walk slower.'], { h: -10, j: -5 }]] });
+
+// --- village ---
+ev({ id: 'v_hen', o: ['village'], a: YA, once: 1,
+  t: ['Соседская курица гуляет прямо перед твоим носом.', 'The neighbour’s chicken struts right in front of your nose.'],
+  c: [{ l: ['Поймать', 'Catch it'], r: [
+        [0.5, ['Вкусно. Сосед ничего не заметил.', 'Delicious. The neighbour did not notice.'], { f: 25, j: 15 }],
+        [0.5, ['Сосед всё видел. В тебя летят камни.', 'The neighbour saw everything. Stones fly your way.'], { f: 15, h: -20, t: -10 }]] },
+      { l: ['Отвернуться', 'Look away'], r: [[1, ['%human% чешет тебя за ухом.', '%human% scratches you behind the ear.'], { t: 10, j: 5 }]] }] });
+ev({ id: 'v_herd', o: ['village'], a: YA, if: (S) => S.human,
+  t: ['%human% уходит пасти коз и зовёт тебя с собой.', '%human% is taking the goats out to graze and calls you along.'],
+  c: [{ l: ['Идти', 'Go'], r: [
+        [0.85, ['Целый день в холмах. Вечером тебе достаётся миска молока.', 'A whole day in the hills. In the evening you get a bowl of milk.'], { j: 15, f: 15, t: 10 }],
+        [0.15, ['В кустах кто-то большой. Ты прогоняешь его, но тебе достаётся.', 'Something big is in the bushes. You chase it off, but it hurts you.'], { h: -30, t: 15 }]] },
+      { l: ['Остаться у дома', 'Stay home'], r: [[1, ['Ты весь день спишь на солнце.', 'You sleep in the sun all day.'], { j: 5 }]] }] });
+ev({ id: 'v_night', o: ['village', 'chain'], a: YAO, once: 1,
+  t: ['Ночью у сарая кто-то крадётся. Пахнет %predator%.', 'Something is creeping round the shed at night. It smells of %predator%.'],
+  c: [{ l: ['Лаять и будить людей', 'Bark and wake the people'], r: [
+        [0.75, ['Зажигается свет. Зверь уходит. Утром тебе дают целую кость.', 'The lights come on. The animal leaves. In the morning you get a whole bone.'], { t: 15, f: 15, j: 10 }],
+        [0.25, ['Зверь не боится лая.', 'The animal is not afraid of barking.'], { h: -40 }]] },
+      { l: ['Спрятаться', 'Hide'], r: [[1, ['Утром одной курицы не хватает. На тебя косо смотрят.', 'In the morning a chicken is missing. People give you dirty looks.'], { t: -15 }]] }] });
+ev({ id: 'v_cough', o: ['village', 'chain'], a: ALL, once: 1, if: (S) => S.human,
+  t: ['Ты кашляешь третью неделю. До ветеринара полдня пути.', 'You have been coughing for three weeks. The nearest vet is half a day away.'],
+  c: [{ l: ['Лежать у печки', 'Lie by the stove'], r: [
+        [0.6, ['Кашель проходит сам.', 'The cough goes away on its own.'], { h: 5 }],
+        [0.4, ['Кашель не проходит.', 'The cough does not go away.'], { h: -30 }]] },
+      { l: ['Ходить за %human%, пока не заметят', 'Follow %human% around until they notice'], r: [
+        [0.5, ['%human% везёт тебя к ветеринару на мотоцикле.', '%human% takes you to the vet on a motorbike.'], { h: 20, t: 15, vacc: 1 }],
+        [0.5, ['«Само пройдёт», — говорит %human%.', '“It will pass,” says %human%.'], { h: -15 }]] }] });
+ev({ id: 'v_wedding', o: ['village'], a: YAO, once: 1,
+  t: ['В деревне свадьба. Три дня музыки и костей.', 'There is a wedding in the village. Three days of music and bones.'],
+  r: [[1, ['Ты наедаешься на месяц вперёд.', 'You eat enough for a month.'], { f: 35, j: 20 }]] });
+ev({ id: 'v_kids', o: ['village', 'pet', 'chain'], a: ['pup', 'young'], once: 1,
+  t: ['Дети катают тебя в тачке и учат приносить палку.', 'Kids give you rides in a wheelbarrow and teach you to fetch a stick.'],
+  r: [[1, ['Лучший день в твоей жизни.', 'The best day of your life.'], { j: 25, t: 15 }]] });
+ev({ id: 'v_city', o: ['village'], a: YA, once: 1, if: (S) => S.human,
+  t: ['%human% уезжает в город на заработки. Дом закрывают.', '%human% leaves for the city to find work. The house is locked up.'],
+  c: [{ l: ['Ждать у калитки', 'Wait by the gate'], r: [
+        [0.5, ['Через полгода %human% возвращается. Ты узнаёшь шаги издалека.', 'Six months later %human% comes back. You recognise the footsteps from far away.'], { j: 20, t: 15, f: -25 }],
+        [0.5, ['%human% не возвращается. Теперь ты живёшь сам{|а} по себе.', '%human% does not come back. Now you live on your own.'], { j: -20, f: -15, to: 'street' }]] },
+      { l: ['Прибиться к соседям', 'Attach yourself to the neighbours'], r: [[1, ['Соседи не против. Но это не твой дом.', 'The neighbours do not mind. But it is not your home.'], { j: -10 }]] }] });
+
+// --- chain ---
+ev({ id: 'c_chain', o: ['chain'], a: PUP, once: 1, w: 3, if: (S) => S.months >= 2,
+  t: ['На тебя надевают ошейник и цепь. Три метра. Будка из старых досок.', 'They put a collar and a chain on you. Three metres. A doghouse made of old planks.'],
+  r: [[1, ['Это теперь весь твой мир.', 'This is your whole world now.'], { j: -15 }]] });
+ev({ id: 'c_frost', o: ['chain'], a: YAO, if: (S) => C[S.cid].cold,
+  t: ['Минус двадцать восемь. В будке нет сена.', 'Minus twenty-eight. There is no straw in the doghouse.'],
+  c: [{ l: ['Свернуться клубком', 'Curl up tight'], r: [[1, ['Ночь тянется бесконечно.', 'The night lasts forever.'], { h: -20 }]] },
+      { l: ['Выть, пока не услышат', 'Howl until someone hears'], r: [
+        [0.5, ['%human% выходит и приносит охапку сена.', '%human% comes out with an armful of straw.'], { h: 5, t: 10 }],
+        [0.5, ['Из окна кричат: «Замолчи!»', 'Someone yells from the window: “Shut up!”'], { h: -15, t: -10 }]] }] });
+ev({ id: 'c_heat', o: ['chain'], a: YAO, if: (S) => !C[S.cid].cold,
+  t: ['Жара. Миска пуста с утра, а до тени цепь не достаёт.', 'Heat. The bowl has been empty since morning, and the chain will not reach the shade.'],
+  c: [{ l: ['Лаять', 'Bark'], r: [
+        [0.6, ['%human% наливает воды и переставляет будку в тень.', '%human% fills the bowl and moves the doghouse into the shade.'], { t: 10, h: 5 }],
+        [0.4, ['До вечера никто не выходит.', 'Nobody comes out until evening.'], { h: -20 }]] },
+      { l: ['Лечь и ждать', 'Lie down and wait'], r: [[1, ['К вечеру ты едва дышишь.', 'By evening you can barely breathe.'], { h: -15 }]] }] });
+ev({ id: 'c_ring', o: ['chain'], a: YA, once: 1,
+  t: ['Ржавое кольцо цепи почти разогнулось.', 'The rusty ring on your chain has almost bent open.'],
+  c: [{ l: ['Рвануть изо всех сил', 'Pull with all your strength'], r: [
+        [0.6, ['Кольцо лопается. Ты бежишь, не разбирая дороги.', 'The ring snaps. You run without looking back.'], { to: 'street', j: 25 }],
+        [0.4, ['Ошейник сдавливает горло. Цепь держит.', 'The collar squeezes your throat. The chain holds.'], { h: -10 }]] },
+      { l: ['Остаться', 'Stay'], r: [[1, ['Здесь хотя бы кормят.', 'At least they feed you here.'], { t: 5 }]] }] });
+ev({ id: 'c_guard', o: ['chain'], a: YAO,
+  t: ['Ночью у калитки чужие шаги.', 'Strange footsteps by the gate at night.'],
+  c: [{ l: ['Лаять во всё горло', 'Bark your head off'], r: [[1, ['Шаги удаляются. Утром %human% хлопает тебя по боку.', 'The footsteps fade. In the morning %human% pats your side.'], { t: 10, j: 10 }]] },
+      { l: ['Промолчать', 'Stay quiet'], r: [[1, ['Утром пропадает велосипед. Ужина тебе не дают.', 'In the morning a bicycle is missing. You get no dinner.'], { f: -20, t: -10 }]] }] });
+ev({ id: 'c_vol', o: ['chain'], a: YAO, once: 1,
+  t: ['У забора останавливаются волонтёры и долго говорят с хозяином.', 'Volunteers stop at the fence and talk to your owner for a long time.'],
+  r: [[0.35, ['Хозяин машет рукой: «Забирайте». С тебя снимают цепь. Новый человек — %human%.', 'The owner waves a hand: “Take it.” They take off your chain. Your new person is %human%.'], { adopt: 1, j: 30 }],
+      [0.65, ['Хозяин хлопает калиткой. Волонтёры оставляют мешок корма.', 'The owner slams the gate. The volunteers leave a bag of food.'], { f: 30 }]] });
+
+// --- pet ---
+ev({ id: 'p_vet', o: ['pet', 'working'], a: PUP, once: 1, w: 2,
+  t: ['Ветклиника. Укол, лакомство, ещё укол.', 'The vet. A shot, a treat, another shot.'],
+  r: [[1, ['Теперь тебе не страшны чумка и парвовирус.', 'Now distemper and parvovirus cannot touch you.'], { vacc: 1, h: 10 }]] });
+ev({ id: 'p_shoe', o: ['pet'], a: ['pup', 'young'], once: 1,
+  t: ['Новые ботинки %human% пахнут кожей и просятся в зубы.', '%human%’s new shoes smell of leather and beg to be chewed.'],
+  c: [{ l: ['Сгрызть', 'Chew them'], r: [[1, ['Это было прекрасно. Потом был скандал.', 'It was wonderful. Then came the scolding.'], { j: 20, t: -10 }]] },
+      { l: ['Принести игрушку', 'Bring a toy instead'], r: [[1, ['%human% смеётся и полчаса играет с тобой.', '%human% laughs and plays with you for half an hour.'], { j: 10, t: 10 }]] }] });
+ev({ id: 'p_park', o: ['pet'], a: YA,
+  t: ['В парке без поводков носятся другие собаки.', 'Other dogs are running off the lead in the park.'],
+  c: [{ l: ['Носиться со всеми', 'Run with them'], r: [
+        [0.88, ['Ты возвращаешься грязн{ым|ой} и счастлив{ым|ой}.', 'You come home muddy and happy.'], { j: 20, h: 5 }],
+        [0.12, ['Кто-то крупный не в духе. Швы, конус, неделя дома.', 'A big dog is in a bad mood. Stitches, a cone, a week indoors.'], { h: -20, j: -5 }]] },
+      { l: ['Держаться у ног', 'Stay by your person'], r: [[1, ['Спокойная прогулка.', 'A calm walk.'], { t: 5 }]] }] });
+ev({ id: 'p_choc', o: ['pet'], a: ['pup', 'young', 'adult'], once: 1,
+  t: ['На краю стола лежит забытая плитка шоколада.', 'A forgotten bar of chocolate sits on the edge of the table.'],
+  c: [{ l: ['Съесть', 'Eat it'], r: [
+        [0.55, ['Ночью рвота. Утром капельница в клинике.', 'Vomiting at night. In the morning, a drip at the clinic.'], { h: -20 }],
+        [0.35, ['Обошлось. Просто болит живот.', 'You got away with it. Just a stomach ache.'], { h: -5, j: 5 }],
+        [0.1, ['Для твоего веса это слишком большая плитка.', 'For your weight this is far too much chocolate.'], { h: -55 }]] },
+      { l: ['Не трогать', 'Leave it'], r: [[1, ['%human% замечает шоколад и убирает его. Тебе дают сыр за терпение.', '%human% spots the chocolate and puts it away. You get cheese for your patience.'], { t: 5, j: 5 }]] }] });
+ev({ id: 'p_fat', o: ['pet'], a: ['adult', 'old'], once: 1,
+  t: ['%human% кормит тебя со стола. Ты заметно округлил{ся|ась}.', '%human% feeds you from the table. You have grown noticeably round.'],
+  r: [[1, ['Ветеринар прописывает диету и долгие прогулки.', 'The vet prescribes a diet and long walks.'], { h: -10, j: 5 }]] });
+ev({ id: 'p_move', o: ['pet'], a: YAO, once: 1, w: 0.35,
+  t: ['Семья переезжает. Тебя везут далеко за город и открывают дверь машины.', 'The family is moving. They drive you far out of town and open the car door.'],
+  c: [{ l: ['Бежать за машиной', 'Run after the car'], r: [[1, ['Ты бежишь, пока не отказывают лапы. Машина не останавливается.', 'You run until your legs give out. The car does not stop.'], { to: 'street', j: -35, t: -30 }]] },
+      { l: ['Ждать на месте', 'Wait right there'], r: [
+        [0.35, ['Через два дня тебя подбирает проезжающий фермер и везёт в приют.', 'Two days later a passing farmer picks you up and takes you to a shelter.'], { to: 'shelter', j: -30, t: -15 }],
+        [0.65, ['Ты ждёшь неделю. Потом идёшь искать еду.', 'You wait for a week. Then you go looking for food.'], { to: 'street', j: -35, t: -25 }]] }] });
+ev({ id: 'p_baby', o: ['pet'], a: YA, once: 1,
+  t: ['В доме появляется младенец. Про тебя как будто забыли.', 'A baby arrives. Everyone seems to have forgotten about you.'],
+  c: [{ l: ['Лечь у кроватки', 'Lie down by the cot'], r: [[1, ['Ты охраняешь сон малыша. Через год он будет кормить тебя кашей с ложки.', 'You guard the baby’s sleep. A year later the baby feeds you porridge from a spoon.'], { t: 15, j: 10 }]] },
+      { l: ['Обидеться и спрятаться', 'Sulk and hide'], r: [
+        [0.85, ['Пару месяцев грустно. Потом всё налаживается.', 'A couple of sad months. Then things settle down.'], { j: -10 }],
+        [0.15, ['Тебя «временно» отдают в приют.', 'They give you to a shelter, “just for a while”.'], { to: 'shelter', j: -30 }]] }] });
+ev({ id: 'p_salute', o: ['pet'], a: YAO, once: 1,
+  t: ['Новогодний салют. Ты срываешься с поводка.', 'New Year fireworks. You slip your lead.'],
+  c: [{ l: ['Бежать куда глаза глядят', 'Run blindly'], r: [
+        [0.6, ['Через три дня тебя находят по объявлению с твоей фотографией.', 'Three days later they find you through a poster with your photo.'], { j: -10, t: 10 }],
+        [0.25, ['Через неделю тебя находят по чипу, худ{ым|ой} и грязн{ым|ой}.', 'A week later someone scans your microchip. You are thin and dirty.'], { h: -15, f: -20 }],
+        [0.15, ['Тебя так и не находят.', 'They never find you.'], { to: 'street', j: -30 }]] },
+      { l: ['Забиться под скамейку и ждать', 'Hide under a bench and wait'], r: [[1, ['%human% находит тебя по скулежу.', '%human% finds you by your whimpering.'], { t: 15 }]] }] });
+ev({ id: 'p_trick', o: ['pet', 'working'], a: ['pup', 'young'], once: 1,
+  t: ['%human% учит тебя давать лапу.', '%human% is teaching you to give a paw.'],
+  c: [{ l: ['Учиться', 'Learn'], r: [[1, ['Лапа, вторая лапа, «умри». Сыр за каждую.', 'Paw, other paw, play dead. Cheese for each one.'], { t: 10, j: 10 }]] },
+      { l: ['Валяться на спине', 'Roll on your back'], r: [[1, ['Чесать пузо тоже считается уроком.', 'Belly rubs count as a lesson too.'], { j: 15 }]] }] });
+ev({ id: 'p_couch', o: ['pet'], a: YA, once: 1,
+  t: ['Диван запрещён. Но %human% на работе.', 'The sofa is forbidden. But %human% is at work.'],
+  c: [{ l: ['Залезть', 'Climb up'], r: [
+        [0.6, ['Никто не узнал.', 'Nobody found out.'], { j: 15 }],
+        [0.4, ['Шерсть на подушке тебя выдала.', 'The fur on the cushion gave you away.'], { j: 10, t: -5 }]] },
+      { l: ['Лечь на коврик', 'Lie on the rug'], r: [[1, ['Коврик тоже ничего.', 'The rug is fine too.'], { t: 5 }]] }] });
+ev({ id: 'p_friend', o: ['pet'], a: YA, once: 1,
+  t: ['В доме появляется ещё один щенок.', 'Another puppy arrives at home.'],
+  c: [{ l: ['Подружиться', 'Make friends'], r: [[1, ['Теперь вы спите вдвоём на одной лежанке.', 'Now you both sleep on one bed.'], { j: 20 }]] },
+      { l: ['Ревновать', 'Be jealous'], r: [[1, ['Через месяц ты сдаёшься и играешь с ним.', 'A month later you give in and play together.'], { j: 5 }]] }] });
+ev({ id: 'p_sea', o: ['pet'], a: YA, once: 1,
+  t: ['Поездка к морю. Ты впервые видишь волны.', 'A trip to the sea. You see waves for the first time.'],
+  c: [{ l: ['Ловить волны', 'Chase the waves'], r: [[1, ['Ты час лаешь на море. Море не отвечает.', 'You bark at the sea for an hour. The sea does not answer.'], { j: 25 }]] },
+      { l: ['Копать песок', 'Dig in the sand'], r: [[1, ['Ты выкапываешь яму глубиной с себя.', 'You dig a hole as deep as you are tall.'], { j: 20 }]] }] });
+ev({ id: 'p_cat', o: ['pet', 'village'], a: YA, once: 1,
+  t: ['На заборе сидит кошка и смотрит на тебя сверху вниз.', 'A cat sits on the fence and looks down at you.'],
+  c: [{ l: ['Погнаться', 'Chase it'], r: [
+        [0.7, ['Кошка на дереве. Ты — герой двора.', 'The cat is up a tree. You are the hero of the yard.'], { j: 15 }],
+        [0.3, ['Кошка оказалась не из пугливых. Нос поцарапан.', 'The cat is not the scared type. Your nose is scratched.'], { h: -8, j: -5 }]] },
+      { l: ['Сделать вид, что не видишь', 'Pretend you have not seen it'], r: [[1, ['Кошка разочарована.', 'The cat is disappointed.'], { j: 5 }]] }] });
+ev({ id: 'p_ill', o: ['pet'], a: ['adult', 'old'], once: 1,
+  t: ['%human% заболевает и неделю не встаёт с постели.', '%human% falls ill and stays in bed for a week.'],
+  c: [{ l: ['Лежать рядом', 'Lie beside them'], r: [[1, ['Ты не отходишь ни на шаг. Гулять приходится соседу.', 'You do not leave their side. The neighbour has to walk you.'], { t: 15, j: -5 }]] },
+      { l: ['Ждать у двери', 'Wait by the door'], r: [[1, ['Каждый шорох в подъезде — вдруг это прогулка.', 'Every sound on the stairs might be a walk.'], { j: -10 }]] }] });
+ev({ id: 'p_breed', o: ['pet', 'mill'], a: YA, once: 1, if: (S) => BREEDS[S.breed].risk,
+  t: (S) => ({
+    breath: ['Летом ты задыхаешься уже через пять минут прогулки. Короткий нос — красивый, но тесный.', 'In summer you are out of breath five minutes into a walk. A short nose is cute, but cramped.'],
+    hips: ['Задние лапы начинают подводить. Ветеринар говорит слово «дисплазия».', 'Your back legs start to give way. The vet says the word “dysplasia”.'],
+    back: ['Ты прыгаешь с дивана, и в спине что-то щёлкает.', 'You jump off the sofa and something clicks in your back.']
+  })[BREEDS[S.breed].risk],
+  r: [[0.7, ['Лечение помогает, но беречься придётся всю жизнь.', 'Treatment helps, but you will have to take care for the rest of your life.'], { h: -15 }],
+      [0.3, ['Операция. Две недели в клетке. Потом снова можно бегать.', 'Surgery. Two weeks in a crate. Then you can run again.'], { h: -25, t: 10 }]] });
+ev({ id: 'p_old', o: ['pet', 'working'], a: ['old'], if: (S) => S.human,
+  t: ['Лапы уже не те. Прогулка — до угла и обратно.', 'Your legs are not what they were. A walk means to the corner and back.'],
+  r: [[1, ['%human% носит тебя по лестнице на руках.', '%human% carries you up the stairs.'], { j: 5, h: -5 }]] });
+ev({ id: 'p_oldvet', o: ['pet', 'working'], a: ['old'], once: 1,
+  t: ['Ветеринар долго слушает сердце и молчит.', 'The vet listens to your heart for a long time and says nothing.'],
+  r: [[1, ['Теперь у тебя таблетки два раза в день. В сыре их почти не видно.', 'Now you have pills twice a day. In cheese you hardly notice them.'], { h: -10 }]] });
+
+// --- puppy farm ---
+ev({ id: 'm_sale', o: ['mill'], a: PUP, once: 1, w: 30, if: (S) => S.months >= 2,
+  t: ['Тебя везут в зоомагазин и сажают за стекло с ценником.', 'They take you to a pet shop and put you behind glass with a price tag.'],
+  r: [[0.85, ['Через неделю тебя покупают. Это %human%. Тебя называют %name%.', 'A week later you are bought. It is %human%. They call you %name%.'], { adopt: 1, j: 20 }],
+      [0.15, ['Тебя не покупают. Ты возвращаешься на ферму, теперь навсегда.', 'Nobody buys you. You go back to the farm, this time for good.'], { j: -25 }]] });
+ev({ id: 'm_cage', o: ['mill'], a: YAO,
+  t: (S) => (S.sex === 'f' ? ['Ещё один помёт. Щенков забирают через восемь недель.', 'Another litter. The puppies are taken away at eight weeks.'] : ['Клетка, миска, клетка. Тебя достают, только чтобы показать покупателю.', 'Cage, bowl, cage. They only take you out to show you to a buyer.']),
+  r: [[1, ['Ты почти не видишь неба.', 'You hardly ever see the sky.'], { h: -12, j: -15 }]] });
+ev({ id: 'm_raid', o: ['mill'], a: YAO, once: 1,
+  t: ['На ферму приезжает проверка. Всех собак выносят на руках.', 'Inspectors arrive at the farm. All the dogs are carried out in people’s arms.'],
+  r: [[1, ['Тебя увозят в приют. Там впервые за годы тихо и светло.', 'You are taken to a shelter. For the first time in years it is quiet and bright.'], { to: 'shelter', j: 15 }]] });
+
+// --- working ---
+const JOBT = {
+  sled: {
+    school: ['Тебя ставят в упряжку рядом с опытными собаками.', 'They put you in harness next to the experienced dogs.'],
+    work: ['Метель на трассе. Упряжка сбивается с пути.', 'A blizzard on the trail. The team loses its way.'],
+    ok: ['Вести по запаху', 'Lead by scent'], okR: ['Ты выводишь упряжку к финишу. Каюр обнимает тебя первым.', 'You lead the team to the finish. The musher hugs you first.'],
+    alt: ['Встать и ждать', 'Stop and wait'], altR: ['Каюр ведёт сам. Обошлось.', 'The musher leads instead. It turns out fine.']
+  },
+  herd: {
+    school: ['Тебя учат обходить отару по кругу.', 'They teach you to circle the flock.'],
+    work: ['Ночью к отаре подходит зверь. Пахнет %predator%.', 'At night an animal approaches the flock. It smells of %predator%.'],
+    ok: ['Встать между ним и овцами', 'Stand between it and the sheep'], okR: ['Зверь уходит. Утром %human% гладит тебя дольше обычного.', 'The animal leaves. In the morning %human% strokes you longer than usual.'],
+    alt: ['Будить людей лаем', 'Bark to wake the people'], altR: ['Люди выбегают с фонарями. Одну овцу всё-таки не уберегли.', 'People run out with torches. One sheep is lost anyway.']
+  },
+  guide: {
+    school: ['Тебя учат останавливаться перед каждой ступенькой.', 'They teach you to stop before every step.'],
+    work: ['Твой человек хочет перейти на зелёный. Но из-за угла летит самокат.', 'Your person wants to cross on green. But a scooter is racing round the corner.'],
+    ok: ['Не пускать', 'Refuse to move'], okR: ['Ты упираешься. Самокат проносится мимо. Тебя обнимают прямо на переходе.', 'You plant your feet. The scooter whizzes past. They hug you right on the crossing.'],
+    alt: ['Идти', 'Go'], altR: ['Вы успеваете отпрыгнуть. Человек долго не может успокоиться.', 'You both jump back in time. Your person is shaken for a long while.']
+  },
+  police: {
+    school: ['Тебя учат искать нужный запах в чемоданах.', 'They teach you to find a particular smell in suitcases.'],
+    work: ['В аэропорту чемодан, который пахнет не так.', 'At the airport there is a suitcase that smells wrong.'],
+    ok: ['Сесть рядом', 'Sit down next to it'], okR: ['Это контрабанда. Твоё фото в новостях.', 'It is contraband. Your photo is in the news.'],
+    alt: ['Пройти мимо', 'Walk past'], altR: ['Ошибку никто не заметил. Кроме тебя.', 'Nobody noticed the mistake. Except you.']
+  }
+};
+ev({ id: 'w_school', o: ['working'], a: ['pup', 'young'], once: 1, w: 2,
+  t: (S) => JOBT[S.job].school,
+  c: [{ l: ['Стараться', 'Try hard'], r: [[1, ['Ты лучш{ий|ая} в группе.', 'You are the best in your group.'], { t: 15, j: 5 }]] },
+      { l: ['Отвлекаться на запахи', 'Get distracted by smells'], r: [
+        [0.7, ['Тебе дают ещё один шанс.', 'They give you another chance.'], { j: 5 }],
+        [0.3, ['Тебя отдают в семью. Работы не будет, будет диван.', 'You are given to a family. No job, just a sofa.'], { to: 'pet', j: 15 }]] }] });
+ev({ id: 'w_work', o: ['working'], a: YA, w: 2,
+  t: (S) => JOBT[S.job].work,
+  c: [{ l: (S) => JOBT[S.job].ok, r: [
+        [0.8, (S) => JOBT[S.job].okR, { t: 15, j: 15 }],
+        [0.2, ['Тебе крепко достаётся. Месяц на больничном.', 'You get badly hurt. A month off work.'], { h: -30, t: 10 }]] },
+      { l: (S) => JOBT[S.job].alt, r: [[1, (S) => JOBT[S.job].altR, { j: -5 }]] }] });
+ev({ id: 'w_retire', o: ['working'], a: ['old'], once: 1, w: 3,
+  t: ['Тебя списывают со службы.', 'You are retired from service.'],
+  r: [[1, ['%human% забирает тебя домой. Теперь твоя работа — лежать у батареи.', '%human% takes you home. Your job now is lying by the radiator.'], { to: 'pet', j: 25 }]] });
+
+// --- shelter ---
+ev({ id: 'sh_cage', o: ['shelter'], a: ALL, once: 1, w: 3,
+  t: ['Вольер №%kennel%. Лают все сразу.', 'Kennel no. %kennel%. Everyone barks at once.'],
+  r: [[1, ['Ты учишься спать под лай.', 'You learn to sleep through the barking.'], { j: -10 }]] });
+ev({ id: 'sh_visit', o: ['shelter'], a: ALL, w: 2,
+  t: ['День посещений. Люди медленно идут вдоль вольеров.', 'Visiting day. People walk slowly past the kennels.'],
+  c: [{ l: ['Подбежать к решётке и махать хвостом', 'Run to the bars and wag your tail'], r: [
+        [(S) => adoptP(S, 1), ['Семья останавливается у твоего вольера. Через неделю тебя забирают. Твой человек — %human%.', 'A family stops at your kennel. A week later they take you home. Your person is %human%.'], { adopt: 1, j: 30 }],
+        [(S) => 1 - adoptP(S, 1), ['Все проходят мимо. Ты долго смотришь им вслед.', 'Everyone walks past. You watch them go for a long time.'], { j: -10 }]] },
+      { l: ['Лежать в углу', 'Lie in the corner'], r: [
+        [(S) => adoptP(S, 0.4), ['Девочка говорит родителям: «Вот эту собаку». Тебя забирают.', 'A girl tells her parents: “This one.” They take you home.'], { adopt: 1, j: 30 }],
+        [(S) => 1 - adoptP(S, 0.4), ['Тебя никто не замечает.', 'Nobody notices you.'], { j: -5 }]] }] });
+ev({ id: 'sh_post', o: ['shelter'], a: ALL, once: 1,
+  t: ['Волонтёр снимает тебя на видео для соцсетей.', 'A volunteer films you for social media.'],
+  c: [{ l: ['Позировать', 'Pose'], r: [[1, ['Видео набирает сорок тысяч просмотров.', 'The video gets forty thousand views.'], { post: 1, j: 10 }]] },
+      { l: ['Прятаться за миской', 'Hide behind the bowl'], r: [[1, ['Видео выходит смешным. Его всё равно смотрят.', 'The video comes out funny. People watch it anyway.'], { post: 1, j: 5 }]] }] });
+
+const EVMAP = {}; EV.forEach((e) => { EVMAP[e.id] = e; });
+
+const PASS = {
+  street: [['Лето. Ты спишь в тени припаркованных машин.', 'Summer. You sleep in the shade of parked cars.'], ['Ты знаешь в округе каждую помойку и каждого доброго продавца.', 'You know every dumpster and every kind vendor around here.']],
+  village: [['Ты лежишь у дороги и провожаешь взглядом автобусы.', 'You lie by the road and watch the buses go by.'], ['Год проходит между двором, полем и чужими огородами.', 'A year goes by between the yard, the fields and other people’s gardens.']],
+  pet: [['Ещё один год прогулок, мисок и сна на диване.', 'Another year of walks, bowls and naps on the sofa.'], ['Прогулка под дождём. Потом полотенце и тёплый пол.', 'A walk in the rain. Then a towel and a warm floor.']],
+  chain: [['Год проходит в радиусе трёх метров.', 'A year goes by inside a three-metre circle.']],
+  working: [['Работа, отдых, снова работа. Тебе это нравится.', 'Work, rest, work again. You like it.']],
+  shelter: [['Ещё один год за решёткой вольера.', 'Another year behind kennel bars.']],
+  mill: [['Клетка, миска, клетка.', 'Cage, bowl, cage.']]
+};
+
+const BIRTH = {
+  street: ['Ты рождаешься %place%, %countryIn%. Вас пятеро. Мама вылизывает тебя последн{им|ей}.', 'You are born %place%, %countryIn%. There are five of you. Your mother licks you clean last.'],
+  village: ['Ты рождаешься %place%, %countryIn%. Здесь есть двор, куры и человек по имени %human%.', 'You are born %place%, %countryIn%. There is a yard, some chickens and a person called %human%.'],
+  pet: ['Ты рождаешься %place%, %countryIn%. В восемь недель тебя забирает %human%. Тебя зовут %name%.', 'You are born %place%, %countryIn%. At eight weeks %human% takes you home. Your name is %name%.'],
+  chain: ['Ты рождаешься %place%, %countryIn%. Твоя мама сидит на цепи. Хозяин — %human%. Тебя назвали %name%.', 'You are born %place%, %countryIn%. Your mother lives on a chain. The owner is %human%. They named you %name%.'],
+  mill: ['Ты рождаешься %place%, %countryIn%. У мамы нет имени, только номер на клетке.', 'You are born %place%, %countryIn%. Your mother has no name, only a number on her cage.'],
+  working: (S) => [`Ты рождаешься %place%, %countryIn%. ${JOBS[S.job].birth[0]} Тебя зовут %name%.`, `You are born %place%, %countryIn%. ${JOBS[S.job].birth[1]} Your name is %name%.`],
+  shelter: ['Ты рождаешься %place%, %countryIn%. Маму нашли у трассы, когда она уже ждала щенков. Тебя назвали %name%.', 'You are born %place%, %countryIn%. Your mother was found by the highway, already pregnant. They named you %name%.']
+};
+
+const CAUSES = {
+  car: { n: ['машина', 'a car'], t: ['Фары. Визг тормозов. Всё заканчивается быстро.', 'Headlights. Screeching brakes. It is over quickly.'] },
+  parvo: { n: ['парвовирус', 'parvovirus'], t: ['Несколько дней ты не можешь есть. Потом засыпаешь и не просыпаешься.', 'For days you cannot eat. Then you fall asleep and do not wake up.'] },
+  distemper: { n: ['чумка', 'distemper'], t: ['Чумка. Прививка стоит дешевле обеда, но её никто не сделал.', 'Distemper. The vaccine costs less than a lunch, but nobody gave it to you.'] },
+  cold: { n: ['холод', 'the cold'], t: ['Ночь оказывается слишком холодной.', 'The night turns out to be too cold.'] },
+  heat: { n: ['жара', 'heat'], t: ['Жара не спадает третий день. Воды нет.', 'The heat has not broken for three days. There is no water.'] },
+  hunger: { n: ['голод', 'hunger'], t: ['Еды не находится ни сегодня, ни завтра.', 'There is no food today, or the next day.'] },
+  poison: { n: ['отрава', 'poison'], t: ['Кто-то разбросал отравленное мясо.', 'Someone scattered poisoned meat.'] },
+  fight: { n: ['драка', 'a fight'], t: ['Чужая стая не прощает. Раны не заживают.', 'A rival pack does not forgive. The wounds do not heal.'] },
+  predator: { n: ['дикий зверь', 'a wild animal'], t: ['Ночью из темноты выходит зверь. Пахнет %predator%.', 'At night an animal comes out of the dark. It smells of %predator%.'] },
+  catchers: { n: ['отлов', 'dog catchers'], t: ['Фургон отловщиков. Обратно оттуда не возвращаются.', 'The catchers’ van. Nobody comes back from it.'] },
+  old: { n: ['старость', 'old age'], t: ['Ты засыпаешь на солнце у забора и больше не просыпаешься.', 'You fall asleep in the sun by the fence and do not wake up.'], th: ['Ты засыпаешь у ног %human% и больше не просыпаешься.', 'You fall asleep at %human%’s feet and do not wake up.'] },
+  cancer: { n: ['рак', 'cancer'], t: ['Опухоль растёт быстрее, чем кто-то успевает заметить.', 'The tumour grows faster than anyone notices.'], th: ['Ветеринар говорит тихо. %human% держит тебя за лапу до конца.', 'The vet speaks quietly. %human% holds your paw until the end.'] },
+  kidney: { n: ['почки', 'kidney failure'], t: ['Почки отказывают. Последние дни ты почти всё время спишь.', 'Your kidneys fail. In your last days you sleep almost all the time.'] },
+  heart: { n: ['сердце', 'heart failure'], t: ['Сердце устаёт раньше тебя.', 'Your heart gets tired before you do.'] },
+  bloat: { n: ['заворот желудка', 'bloat'], t: ['Заворот желудка. До клиники не успевают.', 'Bloat. They do not reach the clinic in time.'] },
+  breath: { n: ['дыхание', 'breathing problems'], t: ['Короткий нос, тяжёлое дыхание. Жаркое лето оказывается последним.', 'A short nose makes breathing hard. A hot summer turns out to be your last.'] },
+  back: { n: ['позвоночник', 'a spinal injury'], t: ['Прыжок с дивана. Позвоночник не выдерживает.', 'A jump off the sofa. Your spine cannot take it.'] },
+  illness: { n: ['болезнь', 'illness'], t: ['Болезнь, которую никто не лечил.', 'An illness nobody treated.'], th: ['Болезнь находят слишком поздно. %human% сидит с тобой до конца.', 'The illness is found too late. %human% stays with you until the end.'] },
+  euth: { n: ['переполненный приют', 'an overcrowded shelter'], t: ['Вольер нужен для новых собак. Тебя усыпляют.', 'The kennel is needed for new dogs. You are put to sleep.'] },
+  work: { n: ['служба', 'on duty'], t: ['Несчастный случай на работе. Ты до конца делаешь то, чему тебя учили.', 'An accident at work. You do what you were trained to do until the very end.'] }
+};
+
+const FACTS = {
+  street: ['В реальности до взрослого возраста доживает примерно 1 уличный щенок из 5. Так показало пятилетнее наблюдение за 364 щенками в Индии (Paul et al., 2016).', 'In reality about 1 in 5 street puppies survives to adulthood. That is what a five-year study of 364 puppies in India found (Paul et al., 2016).'],
+  village: ['По оценкам, около трёх четвертей собак в мире живут свободно: на улицах и в деревнях, без закрытой двери.', 'By most estimates about three in four of the world’s dogs roam free: on streets and in villages, with no door to close.'],
+  pet: ['Домашние собаки живут в среднем 10–13 лет, мелкие дольше крупных. Но домашними рождаются меньше пятой части собак в мире.', 'Pet dogs live 10–13 years on average, small ones longer than big ones. But fewer than one in five of the world’s dogs is born into a home.'],
+  chain: ['Цепь до сих пор обычная жизнь для огромного числа дворовых собак. Собака — стайное животное, и одиночество на цепи для неё тяжелее холода.', 'A chain is still everyday life for a huge number of yard dogs. Dogs are social animals, and loneliness on a chain is harder on them than cold.'],
+  mill: ['На фермах-питомниках собак разводят как товар. Мам держат в клетках и годами используют для разведения.', 'Puppy farms breed dogs as products. The mothers are kept in cages and bred for years.'],
+  working: ['Ездовые, пастушьи, поводыри, служебные: у рабочих собак есть дело, а на пенсии их обычно забирают домой.', 'Sled dogs, herders, guide dogs, police dogs: working dogs have a job, and when they retire they usually go home with someone.'],
+  shelter: ['Каждый год в приюты попадают миллионы собак, и многие ждут хозяина годами. Взрослых и старых берут реже всего.', 'Every year millions of dogs enter shelters, and many wait years for a home. Adult and senior dogs are adopted least often.']
+};
+
+/* ---------- simulation ---------- */
+const STEPS = [0, 1, 2, 4, 7, 12];
+const stepMonths = (i) => (i < STEPS.length ? STEPS[i] : 12 * (i - 4));
+function stage() {
+  if (S.months < 12) return 'pup';
+  const y = S.months / 12;
+  const oldAt = ({ street: 7, village: 8, chain: 8, shelter: 9, mill: 8 })[S.origin] ?? S.L - 3;
+  if (y >= oldAt) return 'old';
+  return y < 3 ? 'young' : 'adult';
+}
+const PUP_H = {
+  street: { 1: 0.2, 2: 0.2, 4: 0.28, 7: 0.22, 12: 0.12 },
+  village: { 1: 0.13, 2: 0.12, 4: 0.17, 7: 0.12, 12: 0.07 },
+  chain: { 1: 0.07, 2: 0.06, 4: 0.06, 7: 0.05, 12: 0.04 },
+  pet: { 1: 0.02, 2: 0.015, 4: 0.015, 7: 0.01, 12: 0.01 },
+  working: { 1: 0.02, 2: 0.015, 4: 0.015, 7: 0.01, 12: 0.01 },
+  mill: { 1: 0.05, 2: 0.05, 4: 0.03, 7: 0.02, 12: 0.02 },
+  shelter: { 1: 0.05, 2: 0.04, 4: 0.03, 7: 0.02, 12: 0.02 }
+};
+const gomp = (y, L) => Math.min(0.9, 0.5 * Math.exp((y - L) / 1.8));
+function hazard() {
+  const o = S.origin, st = S.st, m = S.months;
+  let p;
+  if (m <= 12) p = PUP_H[o][m] ?? 0.02;
+  else {
+    const y = m / 12;
+    p = ({
+      street: 0.16 + 0.03 * y, village: 0.11 + 0.025 * y, chain: 0.05 + gomp(y, S.L - 1.5), pet: 0.01 + gomp(y, S.L),
+      working: 0.03 + gomp(y, S.L - 0.5), shelter: 0.05 + gomp(y, S.L - 1), mill: 0.06 + gomp(y, S.L - 2)
+    })[o];
+    if ((o === 'street' || o === 'village') && S.flags.vacc) p -= 0.04;
+    if ((o === 'street' || o === 'village') && y >= 10) p += 0.25;
+  }
+  if (st.h < 15) p += 0.3; else if (st.h < 30) p += 0.14;
+  if (st.f < 15) p += 0.12;
+  return clamp(p, 0.003, 0.95);
+}
+function drift(isPupNursing) {
+  const st = S.st, o = S.origin;
+  const loss = { street: 14, village: 7, chain: 6, shelter: 2, pet: 0, mill: 3, working: 0 }[o];
+  if (!isPupNursing) st.f -= loss;
+  if (o === 'pet' || o === 'working') st.f = Math.max(st.f, 75);
+  if (o === 'shelter') st.f = Math.max(st.f, 55);
+  if (st.f < 25) st.h -= 12; else st.h += 5;
+  if (stage() === 'old') st.h -= 6;
+  const base = { street: 40, village: 55, chain: 30, shelter: 35, pet: 75, mill: 30, working: 70 }[o];
+  st.j += (base - st.j) * 0.25;
+  for (const k of ['h', 'f', 't', 'j']) st[k] = clamp(Math.round(st[k]), 0, 100);
+}
+function pickCause() {
+  const o = S.origin, sg = stage(), b = BREEDS[S.breed], cold = C[S.cid].cold, vacc = S.flags.vacc;
+  if (sg === 'old' && rnd() < 0.7) return wpick([['old', 35], ['cancer', o === 'pet' || o === 'working' ? 25 : 5], ['kidney', 15], ['heart', 15]]);
+  let L;
+  if (o === 'street') L = sg === 'pup'
+    ? [['parvo', vacc ? 5 : 35], ['hunger', 20], ['cold', cold ? 20 : 8], ['car', 18], ['fight', 6], ['illness', 8]]
+    : [['car', 32], [vacc ? 'illness' : 'distemper', 16], ['poison', 12], ['fight', 12], ['hunger', 10], ['cold', cold ? 10 : 2], ['catchers', 4]];
+  else if (o === 'village') L = sg === 'pup'
+    ? [['parvo', vacc ? 5 : 30], ['illness', 15], ['cold', cold ? 18 : 6], ['hunger', 14], ['predator', 10], ['car', 10]]
+    : [['car', 22], ['illness', 22], ['predator', 12], ['poison', 8], ['hunger', 10], ['cold', cold ? 10 : 2], ['fight', 8]];
+  else if (o === 'chain') L = [['cold', cold ? 30 : 4], ['heat', cold ? 2 : 20], ['illness', 30], ['hunger', 10], ['heart', 10]];
+  else if (o === 'shelter') L = [['illness', 45], ['euth', 25], ['heart', 10]];
+  else if (o === 'mill') L = [['illness', 50], ['heart', 20]];
+  else {
+    L = sg === 'pup' ? [['parvo', vacc ? 2 : 30], ['car', 25], ['illness', 20], ['poison', 10]] : [['car', 25], ['illness', 20], ['cancer', 15], ['poison', 6], ['heart', 8]];
+    if (b.size === 'l' || b.size === 'g') L.push(['bloat', 14]);
+    if (b.risk === 'breath') L.push(['breath', 22]);
+    if (b.risk === 'back') L.push(['back', 10]);
+    if (o === 'working' && sg !== 'pup') L.push(['work', 12]);
+  }
+  return wpick(L);
+}
+function moodNow() { const { j, h } = S.st; if (h < 35) return 0; if (j >= 62) return 3; if (j >= 42) return 2; return 1; }
+function logLine(pair, mood) { S.log.push({ m: S.months, ru: pair.ru, en: pair.en }); if (mood != null) S.trail.push(mood); }
+
+function applyFx(fx) {
+  const st = S.st;
+  for (const k of ['h', 'f', 't', 'j']) if (fx[k]) st[k] = clamp(st[k] + fx[k], 0, 100);
+  if (fx.vacc) S.flags.vacc = 1;
+  if (fx.ster) S.flags.ster = 1;
+  if (fx.post) S.flags.post = 1;
+  if (fx.human && !S.human) S.human = pickHuman(S.cid);
+  if (fx.name && !S.name) S.name = pickName(S.cid, S.sex);
+  if (fx.to) {
+    S.origin = fx.to;
+    if (fx.to === 'shelter' || fx.to === 'street') S.human = null;
+    if (fx.to === 'pet') { if (!S.human) S.human = pickHuman(S.cid); if (!S.name) S.name = pickName(S.cid, S.sex); S.flags.adopted = 1; }
+  }
+  if (fx.adopt) {
+    if (fx.abroad) { S.cid = pick(['ca', 'de', 'gb', 'us', 'us']); S.flags.abroad = 1; }
+    S.origin = 'pet';
+    S.human = pickHuman(S.cid, typeof fx.adopt === 'string' ? fx.adopt : null);
+    if (!S.name) S.name = pickName(S.cid, S.sex);
+    S.flags.adopted = 1; S.flags.vacc = 1;
+    st.f = Math.max(st.f, 70);
+  }
+}
+function rollOutcome(list) {
+  const ws = list.map((o) => Math.max(0, typeof o[0] === 'function' ? o[0](S) : o[0]));
+  let r = rnd() * ws.reduce((a, b) => a + b, 0);
+  for (let i = 0; i < list.length; i++) { r -= ws[i]; if (r <= 0) return list[i]; }
+  return list[list.length - 1];
+}
+function resolve(o, choiceLabel) {
+  const fx = o[2] || {};
+  const before = Object.assign({}, S.st);
+  applyFx(fx);
+  S.ev.out = both(o[1]);
+  S.ev.choice = choiceLabel ? both(choiceLabel) : null;
+  S.ev.delta = {};
+  for (const k of ['h', 'f', 't', 'j']) { const d = S.st[k] - before[k]; if (d) S.ev.delta[k] = d; }
+  const score = (fx.j || 0) + (fx.adopt ? 60 : 0) + (fx.name ? 30 : 0) + (fx.t || 0) * 0.3;
+  if (score > S.bestScore) { S.bestScore = score; S.best = S.ev.out; }
+  const dead = fx.die || S.st.h <= 0;
+  logLine({ ru: `${S.ev.text.ru} ${S.ev.out.ru}`, en: `${S.ev.text.en} ${S.ev.out.en}` }, dead ? null : moodNow());
+  if (dead) { die(fx.die || (S.st.f < 20 ? 'hunger' : pickCause())); return; }
+  S.phase = 'outcome';
+}
+function enterEvent() {
+  const sg = stage();
+  const cand = EV.filter((e) => e.o.includes(S.origin) && e.a.includes(sg) && !(e.once && S.used.includes(e.id)) && (!e.if || e.if(S)));
+  if (!cand.length || (sg !== 'pup' && rnd() < 0.12)) {
+    S.ev = { id: 'pass', text: both(pick(PASS[S.origin])) };
+    S.phase = 'outcome';
+    logLine(S.ev.text, moodNow());
+    return;
+  }
+  const e = wpick(cand.map((x) => [x, x.w || 1]));
+  if (e.once) S.used.push(e.id);
+  S.ev = { id: e.id, text: both(e.t) };
+  if (e.c) S.phase = 'choose';
+  else resolve(rollOutcome(e.r), null);
+}
+function choose(i) {
+  const e = EVMAP[S.ev.id];
+  if (!e || !e.c || S.phase !== 'choose') return;
+  resolve(rollOutcome(e.c[i].r), e.c[i].l);
+  persist(); renderGame(true);
+}
+function die(cause) {
+  S.alive = false; S.cause = cause;
+  const def = CAUSES[cause] || CAUSES.illness;
+  S.ev.death = both(S.human && def.th ? def.th : def.t);
+  S.phase = 'dead';
+  S.trail.push(0);
+  S.log.push({ m: S.months, ru: S.ev.death.ru, en: S.ev.death.en, death: 1 });
+  addToPack();
+  store.del('dl.cur');
+}
+function next() {
+  if (!S || !S.alive) return;
+  const nursing = S.months < 2;
+  S.step += 1;
+  S.months = stepMonths(S.step);
+  drift(nursing);
+  if (S.months / 12 > 21) { S.ev = { id: 'death' }; die('old'); persist(); renderGame(true); return; }
+  if (S.st.h <= 0 || rnd() < hazard()) { S.ev = { id: 'death' }; die(S.st.h <= 0 && S.st.f < 20 ? 'hunger' : pickCause()); persist(); renderGame(true); return; }
+  enterEvent();
+  persist(); renderGame(true);
+}
+function beginLife(life) {
+  S = life;
+  S.ev = { id: 'birth', text: both(BIRTH[S.origin]) };
+  S.phase = 'outcome';
+  logLine(S.ev.text, moodNow());
+  persist();
+  show('game'); renderGame(true);
+}
+function persist() { if (S && S.alive) store.set('dl.cur', S); }
+
+/* ---------- pack ---------- */
+function addToPack() {
+  const pack = store.get('dl.pack', []);
+  pack.unshift({ id: S.id, name: S.name, sex: S.sex, o0: S.origin0, o: S.origin, c0: S.cid0, c: S.cid, m: S.months, cause: S.cause, look: S.look, breed: S.breed, home: !!S.flags.adopted });
+  store.set('dl.pack', pack.slice(0, 80));
+}
+
+/* ---------- drawing ---------- */
+function shade(hex, amt) {
+  const n = parseInt(hex.slice(1), 16);
+  let r = n >> 16, g = (n >> 8) & 255, b = n & 255;
+  if (amt < 0) { r *= 1 + amt; g *= 1 + amt; b *= 1 + amt; } else { r += (255 - r) * amt; g += (255 - g) * amt; b += (255 - b) * amt; }
+  return '#' + [r, g, b].map((v) => Math.round(clamp(v, 0, 255)).toString(16).padStart(2, '0')).join('');
+}
+function mix(a, b, t) {
+  const x = parseInt(a.slice(1), 16), y = parseInt(b.slice(1), 16);
+  const c = [16, 8, 0].map((s) => Math.round(((x >> s) & 255) * (1 - t) + ((y >> s) & 255) * t));
+  return '#' + c.map((v) => v.toString(16).padStart(2, '0')).join('');
+}
+function ell(ctx, x, y, rx, ry, rot) { ctx.beginPath(); ctx.ellipse(x, y, rx, ry, rot || 0, 0, Math.PI * 2); ctx.fill(); }
+function rrect(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+function upEar(ctx, R, s, coat, inner, side, wide) {
+  ctx.save(); ctx.scale(side, 1);
+  const ib = { x: 0.18 * R, y: -0.7 * R }, ob = { x: (wide ? 0.95 : 0.82) * R, y: -0.36 * R };
+  const tip = { x: (0.6 + 0.12 * s) * R, y: -(1.02 + 0.36 * s) * R };
+  ctx.fillStyle = coat;
+  ctx.beginPath(); ctx.moveTo(ib.x, ib.y);
+  ctx.quadraticCurveTo(ib.x + 0.1 * R, tip.y + 0.3 * R, tip.x, tip.y);
+  ctx.quadraticCurveTo(ob.x + 0.1 * R, ob.y - 0.3 * R, ob.x, ob.y);
+  ctx.closePath(); ctx.fill();
+  ctx.fillStyle = inner;
+  ctx.beginPath(); ctx.moveTo(ib.x + 0.14 * R, ib.y + 0.02 * R);
+  ctx.quadraticCurveTo(ib.x + 0.2 * R, tip.y + 0.4 * R, tip.x - 0.02 * R, tip.y + 0.22 * R);
+  ctx.quadraticCurveTo(ob.x - 0.06 * R, ob.y - 0.24 * R, ob.x - 0.18 * R, ob.y - 0.04 * R);
+  ctx.closePath(); ctx.fill();
+  ctx.restore();
+}
+function drawDog(ctx, cx, cy, R, L, o) {
+  o = o || {};
+  ctx.save(); ctx.translate(cx, cy);
+  const coat = L.coat, dark = shade(coat, -0.2), inner = mix(coat, '#E3A49A', 0.55);
+  // neck and chest
+  ctx.fillStyle = coat; ell(ctx, 0, R * 1.08, R * 0.74, R * 0.56);
+  if (L.chest) { ctx.fillStyle = L.chest; ell(ctx, 0, R * 1.2, R * 0.32, R * 0.42); }
+  if (o.collar) {
+    ctx.fillStyle = o.collar; rrect(ctx, -R * 0.6, R * 0.68, R * 1.2, R * 0.17, R * 0.08); ctx.fill();
+    ctx.fillStyle = '#C9A04B'; ell(ctx, 0, R * 0.98, R * 0.13, R * 0.13);
+    ctx.fillStyle = '#9E7A2E'; ell(ctx, 0, R * 0.98, R * 0.06, R * 0.06);
+  }
+  // upright ears behind the head
+  const e = L.ear;
+  if (e === 'up' || e === 'upbig' || e === 'upsmall' || e === 'bat' || e === 'half') {
+    const s = e === 'upbig' || e === 'bat' ? 1.3 : e === 'upsmall' ? 0.65 : e === 'half' ? 0.8 : 1;
+    upEar(ctx, R, s, coat, inner, 1, e === 'bat');
+    upEar(ctx, R, s, coat, inner, -1, e === 'bat');
+    if (e === 'half') {
+      ctx.fillStyle = dark;
+      for (const side of [1, -1]) {
+        ctx.save(); ctx.scale(side, 1);
+        ctx.beginPath(); ctx.moveTo(0.5 * R, -1.18 * R); ctx.lineTo(0.84 * R, -1.15 * R); ctx.lineTo(0.92 * R, -0.86 * R); ctx.closePath(); ctx.fill();
+        ctx.restore();
+      }
+    }
+  }
+  // head
+  const flat = L.snout === 'flat';
+  ctx.fillStyle = coat;
+  ctx.beginPath(); ctx.ellipse(0, -0.08 * R, (flat ? 0.98 : 0.92) * R, 0.82 * R, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.save();
+  ctx.beginPath(); ctx.ellipse(0, -0.08 * R, (flat ? 0.98 : 0.92) * R, 0.82 * R, 0, 0, Math.PI * 2); ctx.clip();
+  if (L.patch) { ctx.fillStyle = L.patch.c; ell(ctx, L.patch.side * 0.4 * R, -0.18 * R, 0.36 * R, 0.33 * R, 0.2 * L.patch.side); }
+  if (L.blaze) { ctx.fillStyle = '#F2EEE6'; ell(ctx, 0, -0.32 * R, 0.1 * R, 0.36 * R); }
+  ctx.restore();
+  // floppy ears on top
+  if (e === 'flop' || e === 'flopsmall') {
+    ctx.fillStyle = dark;
+    for (const side of [1, -1]) {
+      ctx.save(); ctx.scale(side, 1);
+      if (e === 'flopsmall') ell(ctx, 0.72 * R, -0.52 * R, 0.24 * R, 0.17 * R, 0.6);
+      else ell(ctx, 0.86 * R, -0.02 * R, 0.27 * R, 0.56 * R, -0.28);
+      ctx.restore();
+    }
+  }
+  // muzzle
+  const mw = flat ? 0.5 : L.snout === 'short' ? 0.4 : 0.46, mh = flat ? 0.27 : L.snout === 'short' ? 0.28 : 0.32;
+  const my = flat ? 0.27 : 0.3;
+  ctx.fillStyle = L.muzzle; ell(ctx, 0, my * R, mw * R, mh * R);
+  if (o.old) { ctx.fillStyle = 'rgba(236,236,236,.6)'; ell(ctx, 0, (my + 0.03) * R, (mw - 0.06) * R, (mh - 0.05) * R); }
+  // eyes
+  for (const side of [1, -1]) {
+    const ex = side * 0.34 * R, ey = -0.14 * R;
+    if (L.eye !== '#2A1C14') {
+      ctx.fillStyle = L.eye; ell(ctx, ex, ey, 0.1 * R, 0.1 * R);
+      ctx.fillStyle = '#16100D'; ell(ctx, ex, ey, 0.05 * R, 0.05 * R);
+    } else { ctx.fillStyle = '#20150F'; ell(ctx, ex, ey, 0.095 * R, 0.1 * R); }
+    ctx.fillStyle = 'rgba(255,255,255,.85)'; ell(ctx, ex + 0.03 * R, ey - 0.035 * R, 0.032 * R, 0.032 * R);
+    if (o.sad) {
+      ctx.strokeStyle = shade(coat, -0.45); ctx.lineWidth = 0.045 * R; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(side * 0.2 * R, -0.33 * R); ctx.lineTo(side * 0.46 * R, -0.25 * R); ctx.stroke();
+    }
+  }
+  // nose and mouth
+  const ny = (flat ? 0.15 : 0.17) * R;
+  if (o.happy) { ctx.fillStyle = '#D8707C'; ell(ctx, 0, ny + 0.32 * R, 0.075 * R, 0.1 * R); }
+  ctx.fillStyle = '#1B1513'; ell(ctx, 0, ny, 0.15 * R, 0.1 * R);
+  ctx.fillStyle = 'rgba(255,255,255,.35)'; ell(ctx, -0.04 * R, ny - 0.035 * R, 0.045 * R, 0.022 * R);
+  ctx.strokeStyle = '#1B1513'; ctx.lineWidth = 0.035 * R; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(0, ny + 0.08 * R); ctx.lineTo(0, ny + 0.2 * R);
+  ctx.moveTo(-0.15 * R, ny + 0.24 * R); ctx.quadraticCurveTo(-0.06 * R, ny + 0.3 * R, 0, ny + 0.2 * R);
+  ctx.quadraticCurveTo(0.06 * R, ny + 0.3 * R, 0.15 * R, ny + 0.24 * R); ctx.stroke();
+  ctx.restore();
+}
+const COLLARS = ['#B8503A', '#3E6FA8', '#4E8A5A', '#7A4BA0', '#D08A1E'];
+function dogOpts(s) {
+  const owned = s.human && s.origin !== 'shelter' && s.origin !== 'street';
+  const y = s.months / 12;
+  const old = s.alive === false ? y >= 8 : (s.months >= 12 && (y >= ({ street: 7, village: 8, chain: 8, shelter: 9, mill: 8 }[s.origin] ?? s.L - 3)));
+  return { collar: owned ? COLLARS[s.id % COLLARS.length] : null, old, sad: s.st.j < 35 || s.st.h < 30, happy: s.st.j >= 70 && s.st.h >= 50 };
+}
+function paintPortrait(canvas, look, opts, bg) {
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+  ctx.save();
+  ctx.beginPath(); ctx.arc(w / 2, h / 2, w / 2, 0, Math.PI * 2); ctx.clip();
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, w, h);
+  drawDog(ctx, w / 2, h * 0.55, w * 0.3, look, opts);
+  ctx.restore();
+}
+function cssVar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim() || '#DCE2DA'; }
+
+const PAW_SVG = '<svg viewBox="0 0 20 20"><ellipse cx="10" cy="13.2" rx="4.8" ry="4"/><ellipse cx="4.3" cy="8.2" rx="1.9" ry="2.4"/><ellipse cx="8" cy="5.2" rx="1.9" ry="2.5"/><ellipse cx="12" cy="5.2" rx="1.9" ry="2.5"/><ellipse cx="15.7" cy="8.2" rx="1.9" ry="2.4"/></svg>';
+const MOOD_VAR = ['--hurt', '--cold', '--sand', '--accent'];
+const MOOD_HEX = ['#B8503A', '#6D7E91', '#B39465', '#D98B1F'];
+
+/* ---------- record card (share image) ---------- */
+const CARD_BG = { street: '#D7DFE4', village: '#E8DEC3', pet: '#F0DC92', chain: '#DAD3CA', mill: '#EBD2D7', working: '#D1E2D0', shelter: '#E1D3EB' };
+function fontsReady() {
+  if (!document.fonts || !document.fonts.load) return Promise.resolve();
+  const loads = ['700 60px "Caveat"', '600 30px "Golos Text"', '400 30px "Golos Text"', '700 60px "Unbounded"', 'italic 400 38px "Literata"'].map((f) => document.fonts.load(f).catch(() => null));
+  return Promise.race([Promise.all(loads), new Promise((r) => setTimeout(r, 1500))]);
+}
+function wrapText(ctx, text, x, y, maxW, lh, maxLines) {
+  const words = text.split(' ');
+  let line = '';
+  let lines = [];
+  for (const w of words) { const t = line ? line + ' ' + w : w; if (ctx.measureText(t).width > maxW && line) { lines.push(line); line = w; } else line = t; }
+  if (line) lines.push(line);
+  if (lines.length > maxLines) { lines = lines.slice(0, maxLines); lines[maxLines - 1] = lines[maxLines - 1].replace(/\s*\S*$/, '') + '…'; }
+  lines.forEach((l, i) => ctx.fillText(l, x, y + i * lh));
+  return lines.length;
+}
+function fitFont(ctx, text, maxW, size, tpl) { let s = size; ctx.font = tpl.replace('%s', s); while (ctx.measureText(text).width > maxW && s > 20) { s -= 2; ctx.font = tpl.replace('%s', s); } return s; }
+function stampFor(s) {
+  if (s.flags.adopted && s.origin0 !== 'pet') return { t: UI[LANG].stampHome, c: '#2F6B3F' };
+  if (!s.name) return { t: UI[LANG].stampNoName, c: '#9A3B2A' };
+  if (s.months / 12 >= 12) return { t: UI[LANG].stampLong, c: '#2F4F8A' };
+  return null;
+}
+async function drawCard() {
+  await fontsReady();
+  const W = 1080, H = 1350, ink = '#1E2421';
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const x = cv.getContext('2d');
+  const lang = LANG, li = LI(), u = UI[lang];
+  const ls = (v) => { if ('letterSpacing' in x) x.letterSpacing = v; };
+  x.fillStyle = CARD_BG[S.origin0]; x.fillRect(0, 0, W, H);
+  // punched hole with reinforcement ring
+  x.fillStyle = 'rgba(30,36,33,.10)'; ell(x, W / 2, 74, 38, 38);
+  x.fillStyle = '#2A302D'; ell(x, W / 2, 74, 20, 20);
+  // header
+  x.fillStyle = ink; x.textBaseline = 'alphabetic';
+  x.font = '600 28px "Golos Text", system-ui, sans-serif'; ls('4px');
+  x.textAlign = 'left'; x.fillText(u.cardHead.toUpperCase(), 72, 168);
+  x.textAlign = 'right'; x.fillText('№ ' + S.no, W - 72, 168);
+  ls('0px'); x.textAlign = 'left';
+  x.fillStyle = 'rgba(30,36,33,.55)'; x.fillRect(72, 190, W - 144, 3);
+  // portrait
+  const pcx = 280, pcy = 430, pr = 172;
+  x.save(); x.beginPath(); x.arc(pcx, pcy, pr, 0, Math.PI * 2); x.clip();
+  x.fillStyle = 'rgba(255,255,255,.55)'; x.fillRect(pcx - pr, pcy - pr, pr * 2, pr * 2);
+  drawDog(x, pcx, pcy + 22, 116, S.look, dogOpts(S));
+  x.restore();
+  x.strokeStyle = 'rgba(30,36,33,.35)'; x.lineWidth = 3; x.beginPath(); x.arc(pcx, pcy, pr, 0, Math.PI * 2); x.stroke();
+  // fields
+  const fx0 = 500, fw = W - 72 - fx0;
+  const fields = [
+    [u.fName, S.name ? S.name[li] : '—'],
+    [u.fSex, S.sex === 'f' ? u.female : u.male],
+    [u.fBreed, BREEDS[S.breed].n[li]],
+    [u.fHome, `${C[S.cid0].n[li]}, ${ORIGINS[S.origin0].n[li]}`]
+  ];
+  fields.forEach((f, i) => {
+    const y = 250 + i * 98;
+    x.fillStyle = 'rgba(30,36,33,.6)'; x.font = '600 21px "Golos Text", system-ui, sans-serif'; ls('3px');
+    x.fillText(f[0].toUpperCase(), fx0, y); ls('0px');
+    x.fillStyle = '#1F2A5A';
+    fitFont(x, f[1], fw, 54, '700 %spx "Caveat", "Segoe Print", cursive');
+    x.fillText(f[1], fx0, y + 56);
+    x.fillStyle = 'rgba(30,36,33,.3)'; x.fillRect(fx0, y + 70, fw, 2);
+  });
+  // lived
+  const livedTxt = `${fmt([u.lived, u.lived], lang)} ${ageStr(S.months, lang)}`;
+  x.fillStyle = ink;
+  fitFont(x, livedTxt, W - 144, 74, '700 %spx "Unbounded", "Golos Text", sans-serif');
+  x.fillText(livedTxt, 72, 720);
+  x.font = '400 34px "Golos Text", system-ui, sans-serif';
+  x.fillStyle = 'rgba(30,36,33,.8)';
+  x.fillText(`${u.cause}: ${CAUSES[S.cause].n[li]}`, 72, 778);
+  let yy = 778;
+  if (S.origin !== S.origin0 || S.cid !== S.cid0) {
+    yy += 50;
+    x.fillText(`${u.then}: ${ORIGINS[S.origin].n[li]}, ${C[S.cid].n[li]}`, 72, yy);
+  }
+  // epitaph
+  const ep = S.best ? S.best[lang] : S.log[0][lang];
+  x.fillStyle = ink; x.font = 'italic 400 38px "Literata", Georgia, serif';
+  const q = lang === 'ru' ? ['«', '»'] : ['“', '”'];
+  wrapText(x, q[0] + ep.replace(/[.]$/, '') + q[1], 72, yy + 84, W - 144, 54, 3);
+  // paw trail
+  const tr = S.trail.slice(-24);
+  const n = Math.max(tr.length, 1), span = W - 144, step = Math.min(56, span / n), size = Math.min(44, step * 0.9);
+  tr.forEach((m, i) => {
+    const px = 72 + step * i + size / 2, py = 1110 + (i % 2 ? -10 : 10);
+    x.save(); x.translate(px, py); x.rotate(i % 2 ? 0.25 : -0.15); x.fillStyle = MOOD_HEX[m];
+    const k = size / 20;
+    ell(x, 0, 3.2 * k, 4.8 * k, 4 * k); ell(x, -5.7 * k, -1.8 * k, 1.9 * k, 2.4 * k); ell(x, -2 * k, -4.8 * k, 1.9 * k, 2.5 * k); ell(x, 2 * k, -4.8 * k, 1.9 * k, 2.5 * k); ell(x, 5.7 * k, -1.8 * k, 1.9 * k, 2.4 * k);
+    x.restore();
+  });
+  // footer
+  x.fillStyle = 'rgba(30,36,33,.55)'; x.fillRect(72, 1176, W - 144, 3);
+  x.fillStyle = ink; x.font = '700 30px "Unbounded", "Golos Text", sans-serif'; x.fillText(u.brand, 72, 1236);
+  x.font = '400 28px "Golos Text", system-ui, sans-serif'; x.textAlign = 'right'; x.fillText(u.tagline, W - 72, 1236); x.textAlign = 'left';
+  x.font = '400 20px "Golos Text", system-ui, sans-serif'; x.fillStyle = 'rgba(30,36,33,.6)';
+  wrapText(x, FACTS[S.origin0][li], 72, 1282, W - 144, 28, 2);
+  // stamp
+  const st = stampFor(S);
+  if (st) {
+    const txt = fmt([st.t, st.t], lang).toUpperCase();
+    x.save(); x.translate(330, 600); x.rotate(-0.16); x.globalAlpha = 0.85;
+    x.font = '700 40px "Unbounded", "Golos Text", sans-serif';
+    const tw = x.measureText(txt).width;
+    x.strokeStyle = st.c; x.lineWidth = 6; rrect(x, -tw / 2 - 26, -42, tw + 52, 80, 14); x.stroke();
+    x.fillStyle = st.c; x.textAlign = 'center'; x.fillText(txt, 0, 14);
+    x.restore();
+  }
+  return cv;
+}
+
+/* ---------- rendering ---------- */
+let screen = 'intro';
+const SCREENS = ['intro', 'game', 'end', 'pack', 'about'];
+function show(name) {
+  screen = name;
+  SCREENS.forEach((s) => { $('#' + s).hidden = s !== name; });
+  window.scrollTo({ top: 0 });
+}
+function applyStatic() {
+  document.documentElement.lang = LANG;
+  document.title = UI[LANG].brand;
+  document.querySelectorAll('[data-t]').forEach((el) => { const v = UI[LANG][el.dataset.t]; if (typeof v === 'string') el.textContent = v; });
+  $('#langBtn').textContent = LANG === 'ru' ? 'EN' : 'RU';
+  $('#packCount').textContent = store.get('dl.pack', []).length;
+}
+function renderIntro() {
+  const dots = $('#dots');
+  if (!dots.children.length) {
+    let html = '';
+    ORDER.forEach((o) => { for (let i = 0; i < ORIGINS[o].w; i++) html += `<span data-o="${o}" style="--c:var(--o-${o})"></span>`; });
+    dots.innerHTML = html;
+  }
+  $('#legend').innerHTML = ORDER.map((o) => `<li style="--c:var(--o-${o})"><i></i><b>${ORIGINS[o].w}</b><span>${ORIGINS[o].n[LI()]}</span></li>`).join('');
+  const cur = store.get('dl.cur', null);
+  const rb = $('#resumeBtn');
+  if (cur && cur.alive && cur.v === 1) {
+    rb.textContent = `${T('resume')}: ${cur.name ? cur.name[LI()] : T('noName')}, ${ageStr(cur.months)}`;
+    rb.hidden = false;
+  } else rb.hidden = true;
+  $('#startRow').hidden = !!pending || rolling;
+  if (pending) renderReveal();
+}
+let pending = null, rolling = false;
+function renderReveal() {
+  const o = pending.origin0, li = LI();
+  const chip = $('#revealChip');
+  chip.style.setProperty('--c', `var(--o-${o})`);
+  chip.querySelector('span').textContent = `${ORIGINS[o].n[li]} · ${C[pending.cid0].n[li]}`;
+  const who = ORIGINS[o].who[li];
+  $('#revealText').textContent = li ? `You are ${who}. ${capSent(C[pending.cid0].n[li])}.` : `Ты — ${who}. ${C[pending.cid0].n[li]}.`;
+  $('#reveal').hidden = false;
+}
+function roll() {
+  if (rolling) return;
+  rolling = true;
+  pending = null;
+  $('#reveal').hidden = true;
+  $('#startRow').hidden = true;
+  const life = newLife();
+  const dots = [...$('#dots').children];
+  dots.forEach((d) => d.classList.remove('hot'));
+  $('#dots').classList.remove('dim');
+  const targets = dots.map((d, i) => (d.dataset.o === life.origin0 ? i : -1)).filter((i) => i >= 0);
+  const target = pick(targets);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cur = -1, n = 0, delay = 45;
+  const steps = reduce ? 0 : 16;
+  const hop = () => {
+    if (cur >= 0) dots[cur].classList.remove('hot');
+    if (n >= steps) {
+      cur = target; dots[cur].classList.add('hot'); $('#dots').classList.add('dim');
+      pending = life; rolling = false;
+      renderReveal();
+      $('#eyesBtn').focus({ preventScroll: true });
+      return;
+    }
+    cur = Math.floor(rnd() * dots.length); dots[cur].classList.add('hot'); n++; delay *= 1.14;
+    setTimeout(hop, delay);
+  };
+  hop();
+}
+function meterHTML() {
+  const cols = { h: 'var(--good)', f: 'var(--sand)', t: 'var(--cold)', j: 'var(--accent)' };
+  return ['h', 'f', 't', 'j'].map((k) => {
+    const v = S.st[k];
+    return `<div class="meter${v < 25 ? ' low' : ''}" style="--c:${cols[k]}"><span class="ml">${T(k)}</span><span class="mv">${v}</span><span class="mbar"><i style="width:${v}%"></i></span></div>`;
+  }).join('');
+}
+function esc(s) { return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]); }
+function logHTML() {
+  return S.log.slice().reverse().map((l) => `<li><b>${l.m === 0 ? T('birth') : ageStr(l.m)}</b><span>${esc(l[LANG])}</span></li>`).join('');
+}
+function renderGame(anim) {
+  if (!S) return;
+  const li = LI();
+  const tag = $('#nameTag');
+  tag.textContent = S.name ? S.name[li] : T('noName');
+  tag.classList.toggle('empty', !S.name);
+  const chip = $('#whereChip');
+  chip.style.setProperty('--c', `var(--o-${S.origin})`);
+  chip.querySelector('span').textContent = `${ORIGINS[S.origin].n[li]} · ${C[S.cid].n[li]}`;
+  $('#breedLine').textContent = `${BREEDS[S.breed].n[li]} · ${S.sex === 'f' ? T('female') : T('male')}`;
+  $('#ageBig').textContent = S.months === 0 ? T('birth') : ageStr(S.months);
+  const pc = $('#portrait');
+  pc.style.setProperty('--c', `var(--o-${S.origin})`);
+  paintPortrait(pc, S.look, dogOpts(S), cssVar('--sunk'));
+  $('#meters').innerHTML = meterHTML();
+
+  const story = $('#story');
+  const ev = S.ev || {};
+  let h = `<span class="eyebrow">${S.months === 0 ? T('birth') : ageStr(S.months)}</span>`;
+  if (ev.text) h += `<p class="text">${esc(ev.text[LANG])}</p>`;
+  if (S.phase === 'choose') {
+    const e = EVMAP[ev.id];
+    h += '<div class="choices">' + e.c.map((c, i) => `<button class="choice" type="button" data-choice="${i}">${esc(fmt(c.l, LANG))}</button>`).join('') + '</div>';
+  } else {
+    if (ev.choice) h += `<p class="picked">→ ${esc(ev.choice[LANG])}</p>`;
+    if (ev.out) h += `<p class="out">${esc(ev.out[LANG])}</p>`;
+    if (ev.delta && Object.keys(ev.delta).length) {
+      h += '<div class="deltas">' + Object.entries(ev.delta).map(([k, d]) => `<span class="delta ${d > 0 ? 'up' : 'down'}">${T(k)} ${d > 0 ? '+' : '−'}${Math.abs(d)}</span>`).join('') + '</div>';
+    }
+    if (S.phase === 'dead') {
+      h += `<p class="death">${esc(ev.death[LANG])}</p>`;
+      h += `<button class="btn btn-primary block" type="button" id="cardBtn">${T('seeCard')}</button>`;
+    } else {
+      h += `<button class="btn btn-primary block" type="button" id="nextBtn">${T('next')}</button>`;
+    }
+  }
+  story.innerHTML = h;
+  if (anim) { story.classList.remove('fade-in'); void story.offsetWidth; story.classList.add('fade-in'); }
+  $('#trail').innerHTML = S.trail.map((m) => PAW_SVG.replace('<svg', `<svg style="fill:var(${MOOD_VAR[m]})"`)).join('');
+  $('#log').innerHTML = logHTML();
+}
+let cardCanvas = null;
+async function renderEnd() {
+  const li = LI();
+  $('#endTitle').textContent = S.name ? S.name[li] : T('noName');
+  $('#endSub').textContent = `${fmt([UI.ru.lived, UI.en.lived], LANG)} ${ageStr(S.months)} · ${CAUSES[S.cause].n[li]}`;
+  $('#factText').textContent = FACTS[S.origin0][li];
+  $('#endLog').innerHTML = logHTML();
+  $('#shareBox').hidden = true;
+  document.querySelector('#end [data-t="helpText"]').textContent = T('helpText');
+  const img = $('#cardImg');
+  img.alt = T('cardAlt');
+  cardCanvas = await drawCard();
+  img.src = cardCanvas.toDataURL('image/png');
+}
+function shareText() {
+  const li = LI(), u = UI[LANG];
+  const name = S.name ? S.name[li] : u.noName;
+  const path = (S.origin !== S.origin0 || S.cid !== S.cid0) ? ` → ${ORIGINS[S.origin].n[li]}, ${C[S.cid].n[li]}` : '';
+  return `${name} · ${BREEDS[S.breed].n[li]} · ${C[S.cid0].n[li]}, ${ORIGINS[S.origin0].n[li]}${path} · ${fmt([UI.ru.lived, UI.en.lived], LANG).toLowerCase()} ${ageStr(S.months)} · ${CAUSES[S.cause].n[li]}\n${u.brand}. ${u.tagline}`;
+}
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.hidden = false;
+  clearTimeout(toast._t); toast._t = setTimeout(() => { t.hidden = true; }, 3600);
+}
+async function doShare() {
+  const text = shareText();
+  try {
+    if (!navigator.share) throw new Error('no share');
+    const blob = await new Promise((r) => cardCanvas.toBlob(r, 'image/png'));
+    const file = blob ? new File([blob], 'dog-life.png', { type: 'image/png' }) : null;
+    if (file && navigator.canShare && navigator.canShare({ files: [file] })) await navigator.share({ files: [file], text });
+    else await navigator.share({ text });
+  } catch (e) {
+    if (e && e.name === 'AbortError') return;
+    showShareBox(); toast(T('shareFallback'));
+  }
+}
+function showShareBox() { const b = $('#shareBox'); b.value = shareText(); b.hidden = false; }
+function doCopy() {
+  const text = shareText();
+  const fail = () => { showShareBox(); const b = $('#shareBox'); b.focus(); b.select(); toast(T('copyFail')); };
+  try {
+    if (!navigator.clipboard) return fail();
+    navigator.clipboard.writeText(text).then(() => toast(T('copied')), fail);
+  } catch (e) { fail(); }
+}
+function renderPack() {
+  const pack = store.get('dl.pack', []);
+  const li = LI();
+  const grid = $('#packGrid');
+  if (!pack.length) {
+    $('#packSum').textContent = '';
+    grid.innerHTML = `<p class="empty-state">${esc(T('packEmpty'))}</p>`;
+    $('#clearRow').hidden = true;
+    return;
+  }
+  $('#clearRow').hidden = false;
+  const homes = pack.filter((p) => p.home).length;
+  const max = pack.reduce((a, p) => Math.max(a, p.m), 0);
+  $('#packSum').textContent = `${UI[LANG].sumLives(pack.length)} · ${UI[LANG].sumHome(homes)} · ${UI[LANG].sumMax(ageStr(max))}`;
+  grid.innerHTML = pack.map((p, i) => `<div class="pup"><canvas width="128" height="128" data-i="${i}" aria-hidden="true"></canvas><b>${esc(p.name ? p.name[li] : T('noName'))}</b><span>${esc(ageStr(p.m))} · ${esc(C[p.c0].n[li])}, ${esc(ORIGINS[p.o0].n[li])}</span><span>${esc(CAUSES[p.cause] ? CAUSES[p.cause].n[li] : '')}</span></div>`).join('');
+  const bg = cssVar('--sunk');
+  grid.querySelectorAll('canvas').forEach((cv) => {
+    const p = pack[+cv.dataset.i];
+    paintPortrait(cv, p.look, { collar: p.home || p.o === 'pet' || p.o === 'working' ? COLLARS[p.id % COLLARS.length] : null, old: p.m >= 96 }, bg);
+  });
+}
+function renderAbout() {
+  const ru = LANG === 'ru';
+  $('#aboutBody').innerHTML = ru ? `
+    <h2>Об игре</h2>
+    <p>Каждая жизнь — случайный бросок по приблизительной картине того, где и как живут собаки в мире. Чаще всего выпадает улица или деревня, потому что так живёт большинство собак.</p>
+    <h3>На каких цифрах это стоит</h3>
+    <ul>
+      <li>Собак в мире, по разным оценкам, от 700 до 900 миллионов. Около трёх четвертей из них живут свободно: на улицах и в деревнях.</li>
+      <li>До взрослого возраста доживает около 19% уличных щенков, а 63% смертей связаны с людьми. Это пятилетнее исследование 364 щенков в Западной Бенгалии, Индия: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4726281/" target="_blank" rel="noopener">Paul et al., 2016</a>.</li>
+      <li>Домашние собаки живут в среднем 10–13 лет, мелкие дольше крупных.</li>
+    </ul>
+    <h3>Что упрощено</h3>
+    <p>Распределение по странам, вероятности событий и причин смерти — упрощённая модель, а не точная статистика. Мы будем её уточнять.</p>
+    <h3>Как помочь настоящим собакам</h3>
+    <p>${esc(UI.ru.helpText)}</p>` : `
+    <h2>About</h2>
+    <p>Every life is a random draw from a rough picture of where and how dogs live around the world. Most often you land on a street or in a village, because that is how most dogs live.</p>
+    <h3>The numbers behind it</h3>
+    <ul>
+      <li>Estimates put the world’s dogs at 700 to 900 million. About three in four of them roam free, on streets and in villages.</li>
+      <li>About 19% of street puppies survive to adulthood, and 63% of deaths are linked to humans. That comes from a five-year study of 364 puppies in West Bengal, India: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4726281/" target="_blank" rel="noopener">Paul et al., 2016</a>.</li>
+      <li>Pet dogs live 10–13 years on average, small ones longer than big ones.</li>
+    </ul>
+    <h3>What is simplified</h3>
+    <p>The split by country and the odds of events and causes of death are a simplified model, not exact statistics. We will keep refining it.</p>
+    <h3>How to help real dogs</h3>
+    <p>${esc(UI.en.helpText)}</p>`;
+}
+function renderAll() {
+  applyStatic();
+  if (screen === 'intro') renderIntro();
+  if (screen === 'game') renderGame(false);
+  if (screen === 'end') renderEnd();
+  if (screen === 'pack') renderPack();
+  if (screen === 'about') renderAbout();
+}
+let backTo = 'intro';
+function openAside(name) {
+  if (screen !== 'pack' && screen !== 'about') backTo = screen;
+  show(name); renderAll();
+}
+
+/* ---------- events wiring ---------- */
+$('#bornBtn').addEventListener('click', roll);
+$('#eyesBtn').addEventListener('click', () => { if (!pending) return; const life = pending; pending = null; $('#reveal').hidden = true; $('#dots').classList.remove('dim'); [...$('#dots').children].forEach((d) => d.classList.remove('hot')); beginLife(life); });
+$('#resumeBtn').addEventListener('click', () => { const cur = store.get('dl.cur', null); if (cur && cur.alive) { S = cur; show('game'); renderGame(true); } });
+$('#story').addEventListener('click', (e) => {
+  const c = e.target.closest('[data-choice]');
+  if (c) { choose(+c.dataset.choice); return; }
+  if (e.target.closest('#nextBtn')) { next(); return; }
+  if (e.target.closest('#cardBtn')) { show('end'); renderEnd(); applyStatic(); }
+});
+$('#shareBtn').addEventListener('click', doShare);
+$('#copyBtn').addEventListener('click', doCopy);
+$('#againBtn').addEventListener('click', () => { S = null; show('intro'); renderIntro(); roll(); });
+$('#brandBtn').addEventListener('click', () => { show('intro'); renderAll(); });
+$('#packBtn').addEventListener('click', () => openAside('pack'));
+$('#aboutBtn').addEventListener('click', () => openAside('about'));
+$('#packBack').addEventListener('click', () => { show(backTo); renderAll(); });
+$('#aboutBack').addEventListener('click', () => { show(backTo); renderAll(); });
+$('#langBtn').addEventListener('click', () => { LANG = LANG === 'ru' ? 'en' : 'ru'; store.set('dl.lang', LANG); renderAll(); });
+function askClear() {
+  const row = $('#clearRow');
+  row.innerHTML = `<span>${esc(T('clearSure'))}</span><button class="btn btn-ghost" type="button" id="clearYes">${esc(T('yes'))}</button><button class="btn btn-ghost" type="button" id="clearNo">${esc(T('no'))}</button>`;
+  $('#clearYes').addEventListener('click', () => { store.set('dl.pack', []); resetClearRow(); renderPack(); applyStatic(); });
+  $('#clearNo').addEventListener('click', resetClearRow);
+}
+function resetClearRow() {
+  $('#clearRow').innerHTML = `<button class="btn btn-ghost" id="clearBtn" type="button">${esc(T('clear'))}</button>`;
+  $('#clearBtn').addEventListener('click', askClear);
+}
+$('#clearBtn').addEventListener('click', askClear);
+matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', () => { if (screen === 'game') renderGame(false); if (screen === 'pack') renderPack(); });
+new MutationObserver(() => { if (screen === 'game') renderGame(false); if (screen === 'pack') renderPack(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+/* ---------- boot ---------- */
+function start(data) {
+  if (data && data.S) { S = data.S; screen = data.screen || 'game'; }
+  show(screen);
+  renderAll();
+}
+window.claude?.hot?.snapshot?.(() => ({ S, screen: screen === 'end' && S ? 'end' : screen }));
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+window.__dl = { state: () => S };
+})();
+</script>
